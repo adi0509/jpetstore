@@ -1,0 +1,231 @@
+package com.bezkoder.spring.datajpa.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import javax.annotation.Generated;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.bezkoder.spring.datajpa.model.Signon;
+import com.bezkoder.spring.datajpa.model.Account;
+import com.bezkoder.spring.datajpa.model.BannerData;
+import com.bezkoder.spring.datajpa.model.Profile;
+import com.bezkoder.spring.datajpa.model.AccountProfile;
+import com.bezkoder.spring.datajpa.repository.SignonRepository;
+import com.bezkoder.spring.datajpa.repository.AccountRepository;
+import com.bezkoder.spring.datajpa.repository.BannerDataRepository;
+import com.bezkoder.spring.datajpa.repository.ProfileRepository;
+
+@CrossOrigin(origins = "http://localhost:8080")
+@RestController
+@RequestMapping("/api")
+public class SignonController {
+
+	@Autowired
+	SignonRepository signonRepository;
+	
+	@Autowired
+	ProfileRepository profileRepository;
+
+	@Autowired
+	AccountRepository accountRepository;
+
+	@Autowired
+	BannerDataRepository bannerDataRepository;
+
+	@GetMapping("/Signons/all")
+	public ResponseEntity<List<Signon>> getAllUserCredentials(){
+		System.out.println("Hello all!!!!!!!!!!!!!!!!!!!!!!!!!");
+		try{
+			List<Signon> Signons = new ArrayList<Signon>();
+			signonRepository.findAll().forEach(Signons::add);
+			return new ResponseEntity<>(Signons, HttpStatus.OK);
+		} catch(Exception e){
+			//thow error here
+		}
+		return null;
+	}
+
+
+	@GetMapping("/Signons")
+	public ResponseEntity<List<Signon>> getAllSignons(@RequestParam(required = false) String username) {
+		try {
+			List<Signon> Signons = new ArrayList<Signon>();
+
+			if (username == null)
+				signonRepository.findAll().forEach(Signons::add);
+			else
+				signonRepository.findByUsername(username).forEach(Signons::add);
+
+			if (Signons.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+
+			return new ResponseEntity<>(Signons, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/Signons/{username}")
+	public ResponseEntity<Signon> getSignonByUsername(@PathVariable("username") String username) {
+		List<Signon> SignonData = signonRepository.findByUsername(username);
+
+		if (SignonData.size()>0) {
+			return new ResponseEntity<>(SignonData.get(0), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+
+	@PostMapping("/Signons")
+	public ResponseEntity<Signon> createSignon(@RequestBody Signon Signon) {
+		try {
+			Signon _Signon = signonRepository
+					.save(new Signon(Signon.getUsername(), Signon.getPassword()));
+			return new ResponseEntity<>(_Signon, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping("/Signup")
+	public ResponseEntity<String> createSignup(@RequestBody AccountProfile ap) {
+		try {
+			
+			Signon _signon = signonRepository.save(new Signon(ap.getSignon().getUsername(), ap.getSignon().getPassword()));
+			
+			System.out.println("###1: "+ap.getSignon().getUsername());
+			System.out.println("###2: "+ap.getAccount().getUserId());
+			Account _account = accountRepository.save(
+				new Account(
+					ap.getAccount().getUserId(), 
+					ap.getAccount().getEmail(), 
+					ap.getAccount().getFirstName(), 
+					ap.getAccount().getLastName(), 
+					ap.getAccount().getStatus(), 
+					ap.getAccount().getAddress1(), 
+					ap.getAccount().getAddress2(), 
+					ap.getAccount().getCity(), 
+					ap.getAccount().getState(), 
+					ap.getAccount().getZip(), 
+					ap.getAccount().getCountry(), 
+					ap.getAccount().getPhone()
+					)
+			);
+			
+			
+
+			BannerData _bannerData = bannerDataRepository.save(
+				new BannerData(
+					ap.getBannerData().getFavouriteCategoryId(),
+					ap.getBannerData().getBannerName()
+				)
+			);
+
+			Profile _profile = profileRepository.save(
+				new Profile(
+					ap.getProfile().getUserId(),
+					ap.getProfile().getLanguagePreference(),
+					ap.getProfile().getFavouriteCategoryId(),
+					ap.getProfile().isListOption(),
+					ap.getProfile().isBannerOption()
+				)
+			);
+			
+			return new ResponseEntity<>(_signon.toString(), HttpStatus.CREATED);
+		} catch (Exception e) {
+			System.out.println("--------------------------------------------");
+			System.out.println(e);
+			System.out.println("--------------------------------------------");
+
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping("/Signin")
+	public ResponseEntity<String> signin(@RequestBody Signon signon) {
+		try {
+				List<Signon> SignonData = signonRepository.findByUsername(signon.getUsername());
+				System.out.println("Database: "+SignonData.get(0).toString());
+				System.out.println("Post: "+signon.toString());
+				if(SignonData.get(0).getPassword().equals(signon.getPassword()))
+				{
+					return new ResponseEntity<>("True", HttpStatus.OK);
+				}
+				else
+				{
+					return new ResponseEntity<>("Password didn't match: "+SignonData.get(0).getUsername()+ " " +SignonData.get(0).getPassword(), HttpStatus.INTERNAL_SERVER_ERROR);
+				}	
+				// return new ResponseEntity<>("False", HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// @PutMapping("/Signons/{id}")
+	// public ResponseEntity<Signon> updateSignon(@PathVariable("id") long id, @RequestBody Signon Signon) {
+	// 	Optional<Signon> SignonData = signonRepository.findById(id);
+
+	// 	if (SignonData.isPresent()) {
+	// 		Signon _Signon = SignonData.get();
+	// 		_Signon.setTitle(Signon.getTitle());
+	// 		_Signon.setDescription(Signon.getDescription());
+	// 		_Signon.setPublished(Signon.isPublished());
+	// 		return new ResponseEntity<>(signonRepository.save(_Signon), HttpStatus.OK);
+	// 	} else {
+	// 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	// 	}
+	// }
+
+	// @DeleteMapping("/Signons/{id}")
+	// public ResponseEntity<HttpStatus> deleteSignon(@PathVariable("id") long id) {
+	// 	try {
+	// 		signonRepository.deleteById(id);
+	// 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	// 	} catch (Exception e) {
+	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	// 	}
+	// }
+
+	@DeleteMapping("/Signons")
+	public ResponseEntity<HttpStatus> deleteAllSignons() {
+		try {
+			signonRepository.deleteAll();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+
+	// @GetMapping("/Signons/published")
+	// public ResponseEntity<List<Signon>> findByPublished() {
+	// 	try {
+	// 		List<Signon> Signons = signonRepository.findByUsername();
+
+	// 		if (Signons.isEmpty()) {
+	// 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	// 		}
+	// 		return new ResponseEntity<>(Signons, HttpStatus.OK);
+	// 	} catch (Exception e) {
+	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	// 	}
+	// }
+
+}
