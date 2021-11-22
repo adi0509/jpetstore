@@ -8,6 +8,7 @@
 ### Start server
     docker-compose build
     docker-compose up -d
+NOTE: ``docker-compose build`` will take 15-20 minutes for the first time. It downloads all the required dependency.
 ### Stop server
     docker-compose down
 
