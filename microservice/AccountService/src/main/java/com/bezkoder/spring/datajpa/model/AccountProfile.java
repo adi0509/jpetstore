@@ -6,8 +6,6 @@ public class AccountProfile {
     Signon signon;
     BannerData bannerData;
 
-    // AccountProfile(){}
-
     AccountProfile(String userId, String email, String fName, String lName, String status, String addr1, String addr2, String city, String state, String zip, String country, String phone, String favcategory, String bannername, String languagePreference, String favouriteCategoryId, boolean listOption, boolean bannerOption, String password){
         
         account = new Account(userId, email, fName, lName, status, addr1, addr2, city, state, zip, country, phone);
@@ -35,25 +33,4 @@ public class AccountProfile {
     public BannerData getBannerData(){
         return this.bannerData;
     }
-} 
-// {
-//     "userId": "asd",
-//     "email": "1",
-//     "fName": "1",
-//     "lName": "1",
-//     "status": "1",
-//     "addr1": "1",
-//     "addr2": "1",
-//     "city": "1",
-//     "state": "1",
-//     "zip": "1",
-//     "country": "1",
-//     "phone": "1",
-//     "favcategory": "1",
-//     "bannername": "1",
-//     "languagePreference": "1",
-//     "favouriteCategoryId": "1",
-//     "listOption": true,
-//     "bannerOption": true,
-//     "password":"12"
-// }
+}

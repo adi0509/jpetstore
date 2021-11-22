@@ -6,10 +6,6 @@ import javax.persistence.*;
 @Table(name = "sequence")
 public class Sequence {
 
-	// name               varchar(30)  not null,
-    // nextid             int          not null,
-    // constraint pk_sequence primary key (name)
-
 	//empty constructor
 	public Sequence(){}
 

@@ -7,6 +7,4 @@ import com.bezkoder.spring.datajpa.model.LineItem;
 
 public interface LineitemRepository extends JpaRepository<LineItem, Long>  {
 
-    // List<Lineitem> findByItemId(String itemId);
-    // List<Lineitem> findItemByProductId(String productId);
 }

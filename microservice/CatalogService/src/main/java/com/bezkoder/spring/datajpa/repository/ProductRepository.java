@@ -10,10 +10,6 @@ import com.bezkoder.spring.datajpa.model.Product;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 	List<Product> findByProductId(String productId);
 	List<Product> findProductByCategory(String category);
-
-	// @Quer
-
-	// @Query ("SELECT * FROM product p WHERE lower(p.name) LIKE %?1%")
-	// public List<Product> search(String keyword);
+	
 	List<Product> findByNameContaining(String keyword);
 }

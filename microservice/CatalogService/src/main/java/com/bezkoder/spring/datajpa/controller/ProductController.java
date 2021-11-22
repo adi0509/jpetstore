@@ -42,19 +42,6 @@ public class ProductController {
     @Autowired
     ProductRepository productRepository;
 
-    // @GetMapping("/category/all")
-	// public ResponseEntity<List<Category>> getAllCategories(){	
-	// 	try{
-	// 		List<Category> categoryList = new ArrayList<Category>();
-	// 		categoryRepository.findAll().forEach(categoryList::add);
-	// 		return new ResponseEntity<>(categoryList, HttpStatus.OK);
-	// 	} catch(Exception e){
-	// 		//thow error here
-    //         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-	// 	}
-	// 	// return null;
-	// }
-
     @GetMapping("/product/{productId}")
 	public ResponseEntity<Product> getProductById(@PathVariable("productId") String productId) {
 		List<Product> productData = productRepository.findByProductId(productId);
@@ -80,9 +67,7 @@ public class ProductController {
 
 	@PostMapping("/product/search")
 	public ResponseEntity<List<Product>> searchProductByKeyword(@RequestBody Keyword requestBody) {
-		// List<Product> productData = productRepository.search(keyword);
 		List<Product> productData = productRepository.findByNameContaining(requestBody.getKeyword());
-		System.out.println("----------------------Keyword:------------"+requestBody.getKeyword()+"-----------");
 		if (productData.size()>0) {
 			return new ResponseEntity<>(productData, HttpStatus.OK);
 		} else {

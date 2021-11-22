@@ -49,15 +49,14 @@ public class SignonController {
 
 	@GetMapping("/Signons/all")
 	public ResponseEntity<List<Signon>> getAllUserCredentials(){
-		System.out.println("Hello all!!!!!!!!!!!!!!!!!!!!!!!!!");
 		try{
 			List<Signon> Signons = new ArrayList<Signon>();
 			signonRepository.findAll().forEach(Signons::add);
 			return new ResponseEntity<>(Signons, HttpStatus.OK);
 		} catch(Exception e){
 			//thow error here
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return null;
 	}
 
 
@@ -110,8 +109,6 @@ public class SignonController {
 			
 			Signon _signon = signonRepository.save(new Signon(ap.getSignon().getUsername(), ap.getSignon().getPassword()));
 			
-			System.out.println("###1: "+ap.getSignon().getUsername());
-			System.out.println("###2: "+ap.getAccount().getUserId());
 			Account _account = accountRepository.save(
 				new Account(
 					ap.getAccount().getUserId(), 
@@ -150,10 +147,7 @@ public class SignonController {
 			
 			return new ResponseEntity<>(_signon.toString(), HttpStatus.CREATED);
 		} catch (Exception e) {
-			System.out.println("--------------------------------------------");
 			System.out.println(e);
-			System.out.println("--------------------------------------------");
-
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -162,8 +156,6 @@ public class SignonController {
 	public ResponseEntity<String> signin(@RequestBody Signon signon) {
 		try {
 				List<Signon> SignonData = signonRepository.findByUsername(signon.getUsername());
-				System.out.println("Database: "+SignonData.get(0).toString());
-				System.out.println("Post: "+signon.toString());
 				if(SignonData.get(0).getPassword().equals(signon.getPassword()))
 				{
 					return new ResponseEntity<>("True", HttpStatus.OK);
@@ -172,36 +164,10 @@ public class SignonController {
 				{
 					return new ResponseEntity<>("Password didn't match: "+SignonData.get(0).getUsername()+ " " +SignonData.get(0).getPassword(), HttpStatus.INTERNAL_SERVER_ERROR);
 				}	
-				// return new ResponseEntity<>("False", HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
-	// @PutMapping("/Signons/{id}")
-	// public ResponseEntity<Signon> updateSignon(@PathVariable("id") long id, @RequestBody Signon Signon) {
-	// 	Optional<Signon> SignonData = signonRepository.findById(id);
-
-	// 	if (SignonData.isPresent()) {
-	// 		Signon _Signon = SignonData.get();
-	// 		_Signon.setTitle(Signon.getTitle());
-	// 		_Signon.setDescription(Signon.getDescription());
-	// 		_Signon.setPublished(Signon.isPublished());
-	// 		return new ResponseEntity<>(signonRepository.save(_Signon), HttpStatus.OK);
-	// 	} else {
-	// 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	// 	}
-	// }
-
-	// @DeleteMapping("/Signons/{id}")
-	// public ResponseEntity<HttpStatus> deleteSignon(@PathVariable("id") long id) {
-	// 	try {
-	// 		signonRepository.deleteById(id);
-	// 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	// 	} catch (Exception e) {
-	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	// 	}
-	// }
 
 	@DeleteMapping("/Signons")
 	public ResponseEntity<HttpStatus> deleteAllSignons() {
@@ -213,19 +179,4 @@ public class SignonController {
 		}
 
 	}
-
-	// @GetMapping("/Signons/published")
-	// public ResponseEntity<List<Signon>> findByPublished() {
-	// 	try {
-	// 		List<Signon> Signons = signonRepository.findByUsername();
-
-	// 		if (Signons.isEmpty()) {
-	// 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	// 		}
-	// 		return new ResponseEntity<>(Signons, HttpStatus.OK);
-	// 	} catch (Exception e) {
-	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	// 	}
-	// }
-
 }

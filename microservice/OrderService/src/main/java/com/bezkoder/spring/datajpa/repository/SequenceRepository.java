@@ -8,5 +8,4 @@ import com.bezkoder.spring.datajpa.model.Sequence;
 
 public interface SequenceRepository extends JpaRepository<Sequence, Long> {
 	Sequence findNextIdByName(String name);
-	// List<Signon> findByUsernameAndPassword(String username, String password);
 }

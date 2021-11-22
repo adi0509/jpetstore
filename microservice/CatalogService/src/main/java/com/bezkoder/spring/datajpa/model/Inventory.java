@@ -6,10 +6,6 @@ import javax.persistence.*;
 @Table(name = "inventory")
 public class Inventory
 {
-  // itemid varchar(10) not null,
-  // qty int not null,
-  // constraint pk_inventory primary key (itemid)
-
     //empty constructor
     public Inventory(){}
 

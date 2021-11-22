@@ -6,17 +6,6 @@ import javax.persistence.*;
 @Table(name = "signon")
 public class Supplier {
 
-	// suppid int not null,
-    // name varchar(80) null,
-    // status varchar(2) not null,
-    // addr1 varchar(80) null,
-    // addr2 varchar(80) null,
-    // city varchar(80) null,
-    // state varchar(80) null,
-    // zip varchar(5) null,
-    // phone varchar(80) null,
-    // constraint pk_supplier primary key (suppid)
-
 	//empty constructor
 	public Supplier(){}
 

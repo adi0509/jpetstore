@@ -6,12 +6,6 @@ import javax.persistence.*;
 @Table(name = "profile")
 public class Profile {
 
-    // userid varchar(80) not null,
-    // langpref varchar(80) not null,
-    // favcategory varchar(30),
-    // mylistopt int,
-    // banneropt int,
-
     //empty constructor
     public Profile(){}
     

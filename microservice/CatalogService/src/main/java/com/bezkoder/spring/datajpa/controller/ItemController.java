@@ -44,19 +44,6 @@ public class ItemController {
 	@Autowired
     InventoryRepository inventoryRepository;
 
-    // @GetMapping("/category/all")
-	// public ResponseEntity<List<Item>> getAllCategories(){	
-	// 	try{
-	// 		List<Item> itemList = new ArrayList<Item>();
-	// 		itemRepository.findAll().forEach(itemList::add);
-	// 		return new ResponseEntity<>(itemList, HttpStatus.OK);
-	// 	} catch(Exception e){
-	// 		//thow error here
-    //         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-	// 	}
-	// 	// return null;
-	// }
-
     @GetMapping("/item/{itemId}")
 	public ResponseEntity<Item> getCategoryById(@PathVariable("itemId") String itemId) {
 		List<Item> itemData = itemRepository.findByItemId(itemId);

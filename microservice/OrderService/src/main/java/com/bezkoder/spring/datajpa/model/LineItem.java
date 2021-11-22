@@ -6,13 +6,6 @@ import javax.persistence.*;
 @Table(name = "lineitem")
 public class LineItem {
 
-	//   orderid int not null,
-    //   linenum int not null,
-    //   itemid varchar(10) not null,
-    //   quantity int not null,
-    //   unitprice decimal(10,2) not null,
-    //   constraint pk_lineitem primary key (orderid, linenum)
-
 	//empty constructor
 	public LineItem(){}
 

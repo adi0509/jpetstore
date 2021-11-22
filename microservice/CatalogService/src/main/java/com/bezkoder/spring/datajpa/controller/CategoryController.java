@@ -51,14 +51,11 @@ public class CategoryController {
 			//thow error here
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		// return null;
 	}
 
     @GetMapping("/category/{catId}")
 	public ResponseEntity<Category> getCategoryById(@PathVariable("catId") String catId) {
 		List<Category> categoryData = categoryRepository.findByCatId(catId);
-                                                    //   findByCatId
-
 		if (categoryData.size()>0) {
 			return new ResponseEntity<>(categoryData.get(0), HttpStatus.OK);
 		} else {

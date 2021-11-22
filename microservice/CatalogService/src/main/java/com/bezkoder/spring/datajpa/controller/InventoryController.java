@@ -50,14 +50,10 @@ public class InventoryController {
 					//return false
 					return new ResponseEntity<>("Failed", HttpStatus.BAD_REQUEST);
 				}
-				Inventory item2 = itemList.get(0);
-
-				System.out.println(item.getQuantity()+" "+ item.getItemId());
-				
+				Inventory item2 = itemList.get(0);				
 				item2.setQuantity(item2.getQuantity()-item.getQuantity());
 				inventoryRepository.save(item2);
 			}
-			System.out.println(inventoryList.get(0).getQuantity()+" "+ inventoryList.get(0).getItemId());
 			return new ResponseEntity<>("Success", HttpStatus.OK);		
 		} catch(Exception ex){
 			System.out.print("Exception occurred!!"+ex);
@@ -66,17 +62,3 @@ public class InventoryController {
 
 	}
 }
-
-/*
-[
-    {
-        "itemId":"EST-1",
-        "qty":"1"
-    },
-    {
-        "itemId":"EST-4",
-        "qty":"100"
-    }
-]
-
-*/

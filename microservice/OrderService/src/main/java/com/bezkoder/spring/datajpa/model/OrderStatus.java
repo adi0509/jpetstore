@@ -6,12 +6,6 @@ import javax.persistence.*;
 @Table(name = "orderstatus")
 public class OrderStatus {
 
-  // orderid int not null,
-  // linenum int not null,
-  // timestamp date not null,
-  // status varchar(2) not null,
-  // constraint pk_orderstatus primary key (orderid, linenum)
-
     // empty constructor
     public OrderStatus(){}
 

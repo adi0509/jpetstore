@@ -6,9 +6,6 @@ import java.util.List;
 public class OrderItems {
     Orders orders;
     List<LineItem> lineItems;
-
-    //empty constructor
-    // public OrderItems(){}
     
     public OrderItems(
         int orderId, 
@@ -79,56 +76,4 @@ public class OrderItems {
     public List<LineItem> getLineItems(){
         return this.lineItems;
     }
-} 
-
-
-// {
-//     "orderId": "1",
-//     "userId": "j2ee",
-//     "orderdate": "2021/01/01",
-//     "shipAddr1": "1",
-//     "shipAddr2": "1",
-//     "shipcity": "1",
-//     "shipstate": "1",
-//     "shipzip": "1",
-//     "shipcountry": "1",
-//     "billaddr1": "1",
-//     "billaddr2": "1",
-//     "billcity": "1",
-//     "billstate": "1",
-//     "billzip": "1",
-//     "billcountry": "1",
-//     "courier": "1",
-//     "totalprice": "1",
-//     "billtofirstname": "1",
-//     "billtolastname": "1",
-//     "shiptofirstname": "1",
-//     "shiptolastname": "1",
-//     "creditcard": "1",
-//     "exprdate": "1",
-//     "cardtype": "1",
-//     "locale": "1",
-//     "lineItems": [
-//         {
-//             "orderId": 1001,
-//             "linenum": 1,
-//             "itemId": "NA",
-//             "quantity": 2,
-//             "unitprice": "500"
-//         },
-//         {
-//             "orderId": 1001,
-//             "linenum": 2,
-//             "itemId": "NA",
-//             "quantity": 2,
-//             "unitprice": "500"
-//         },
-//         {
-//             "orderId": 1001,
-//             "linenum": 3,
-//             "itemId": "NA",
-//             "quantity": 2,
-//             "unitprice": "500"
-//         }
-//     ]
-// }
+}

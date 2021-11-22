@@ -6,13 +6,6 @@ import javax.persistence.*;
 @Table(name = "category")
 public class Category
 {
-  // catid varchar(10) not null,
-	// name varchar(80) null,
-	// descn varchar(255) null,
-
-
-    //empty constructor
-    // public Category(){}
 
     public Category(String catId, String name, String descn){
       this.catId = catId;
