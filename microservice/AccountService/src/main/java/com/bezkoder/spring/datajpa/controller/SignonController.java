@@ -47,7 +47,7 @@ public class SignonController {
 	@Autowired
 	BannerDataRepository bannerDataRepository;
 
-	@GetMapping("/Signons/all")
+	@GetMapping("/signons/all")
 	public ResponseEntity<List<Signon>> getAllUserCredentials(){
 		try{
 			List<Signon> Signons = new ArrayList<Signon>();
@@ -60,7 +60,7 @@ public class SignonController {
 	}
 
 
-	@GetMapping("/Signons")
+	@GetMapping("/signons")
 	public ResponseEntity<List<Signon>> getAllSignons(@RequestParam(required = false) String username) {
 		try {
 			List<Signon> Signons = new ArrayList<Signon>();
@@ -80,7 +80,7 @@ public class SignonController {
 		}
 	}
 
-	@GetMapping("/Signons/{username}")
+	@GetMapping("/signons/{username}")
 	public ResponseEntity<Signon> getSignonByUsername(@PathVariable("username") String username) {
 		List<Signon> SignonData = signonRepository.findByUsername(username);
 
@@ -92,7 +92,7 @@ public class SignonController {
 	}
 
 
-	@PostMapping("/Signons")
+	@PostMapping("/signons")
 	public ResponseEntity<Signon> createSignon(@RequestBody Signon Signon) {
 		try {
 			Signon _Signon = signonRepository
@@ -103,7 +103,7 @@ public class SignonController {
 		}
 	}
 
-	@PostMapping("/Signup")
+	@PostMapping("/signup")
 	public ResponseEntity<String> createSignup(@RequestBody AccountProfile ap) {
 		try {
 			
@@ -152,7 +152,7 @@ public class SignonController {
 		}
 	}
 
-	@PostMapping("/Signin")
+	@PostMapping("/signin")
 	public ResponseEntity<String> signin(@RequestBody Signon signon) {
 		try {
 				List<Signon> SignonData = signonRepository.findByUsername(signon.getUsername());
@@ -169,7 +169,7 @@ public class SignonController {
 		}
 	}
 
-	@DeleteMapping("/Signons")
+	@DeleteMapping("/signons")
 	public ResponseEntity<HttpStatus> deleteAllSignons() {
 		try {
 			signonRepository.deleteAll();
