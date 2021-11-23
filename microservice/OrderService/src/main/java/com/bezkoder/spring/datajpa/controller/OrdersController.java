@@ -58,7 +58,7 @@ public class OrdersController {
 	LineitemRepository lineitemRepository;
 
     @GetMapping("/order/{orderId}")
-	public ResponseEntity<Orders> getOrderByOrderId(@RequestParam int orderId){	
+	public ResponseEntity<Orders> getOrderByOrderId(@PathVariable int orderId){	
 		try{
 			List<Orders> orderData = orderRepository.findByOrderId(orderId);
 			return new ResponseEntity<>(orderData.get(0), HttpStatus.OK);
@@ -69,7 +69,7 @@ public class OrdersController {
 	}
 
    @GetMapping("/order/user/{userId}")
-	public ResponseEntity<List<Orders>> getAllOrderByUserId(@RequestParam String userId){	
+	public ResponseEntity<List<Orders>> getAllOrderByUserId(@PathVariable String userId){	
 		try{
 			List<Orders> orderList = orderRepository.findOrdersByUserId(userId);
 			
@@ -117,7 +117,7 @@ public class OrdersController {
         	System.out.println(new Gson().toJson(orderItems.getLineItems()));
 
 			//communicate to inventory microservice through REST API
-		    updateInventoryRequest(orderItems.getLineItems(), "http://api-catalog:8082/api/inventory");
+		    updateInventoryRequest(orderItems.getLineItems(), "http://api-catalog:8080/api/inventory");
 			  						    
 			orderItems.getOrders().setTotalPrice(String.valueOf(totalPrice));
 
@@ -138,11 +138,8 @@ public class OrdersController {
 				lineItem.setOrderId(_order.getOrderId());
 				lineitemRepository.save(lineItem);
 			});
-
-
-
-			
-			return new ResponseEntity<>(_order.toString(), HttpStatus.CREATED);
+						
+			return new ResponseEntity<>("Order Successfully placed", HttpStatus.CREATED);
 		} catch (Exception e) {
 			System.out.println(e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -160,7 +157,11 @@ public class OrdersController {
 		try(OutputStream os = con.getOutputStream()) {
 			byte[] input = jsonInputString.getBytes("utf-8");
 			os.write(input, 0, input.length);			
-		}
+		} 
+		catch(Exception e)  
+        {  
+            System.out.println("Exception Occurred: "+e);  
+        }  
 
 		try(BufferedReader br = new BufferedReader(
 			new InputStreamReader(con.getInputStream(), "utf-8"))) {
@@ -171,6 +172,10 @@ public class OrdersController {
 			}
 			System.out.println(response.toString());
 		}
+		catch(Exception e)  
+        {  
+            System.out.println("Exception Occurred: "+e);  
+        } 
 
 	}
 }

@@ -7,6 +7,8 @@ import javax.persistence.*;
 public class Category
 {
 
+    public Category(){}
+    
     public Category(String catId, String name, String descn){
       this.catId = catId;
       this.name = name;
