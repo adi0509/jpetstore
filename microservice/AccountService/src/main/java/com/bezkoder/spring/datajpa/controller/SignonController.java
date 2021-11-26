@@ -30,7 +30,8 @@ import com.bezkoder.spring.datajpa.repository.AccountRepository;
 import com.bezkoder.spring.datajpa.repository.BannerDataRepository;
 import com.bezkoder.spring.datajpa.repository.ProfileRepository;
 
-@CrossOrigin(origins = "http://localhost:8080")
+
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class SignonController {

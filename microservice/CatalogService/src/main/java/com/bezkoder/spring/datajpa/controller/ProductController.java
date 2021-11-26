@@ -34,7 +34,7 @@ import com.bezkoder.spring.datajpa.repository.SupplierRepository;
 
 
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class ProductController {

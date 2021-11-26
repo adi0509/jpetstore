@@ -40,7 +40,7 @@ import com.bezkoder.spring.datajpa.repository.SequenceRepository;
 
 import com.google.gson.Gson; 
 
-@CrossOrigin(origins = "http://localhost:8080") 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class OrdersController {
