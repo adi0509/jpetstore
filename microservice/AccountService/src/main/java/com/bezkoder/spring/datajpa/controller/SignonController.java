@@ -160,7 +160,7 @@ public class SignonController {
 				String result;
 				if(SignonData.get(0).getPassword().equals(signon.getPassword()))
 				{
-					result = "{\"status\": \"true\"}";
+					result = "{\"status\": \"true\"}"; 
 					return new ResponseEntity<>(result , HttpStatus.OK);
 				}
 				else
@@ -169,7 +169,7 @@ public class SignonController {
 					return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
 				}	
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); 
 		}
 	}
 
