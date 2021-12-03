@@ -160,12 +160,12 @@ public class SignonController {
 				String result;
 				if(SignonData.get(0).getPassword().equals(signon.getPassword()))
 				{
-					result = "{status: true}";
+					result = "{\"status\": \"true\"}";
 					return new ResponseEntity<>(result , HttpStatus.OK);
 				}
 				else
 				{
-					result = "{status: false}";
+					result = "{\"status\": \"false\"}";
 					return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
 				}	
 		} catch (Exception e) {
