@@ -157,13 +157,16 @@ public class SignonController {
 	public ResponseEntity<String> signin(@RequestBody Signon signon) {
 		try {
 				List<Signon> SignonData = signonRepository.findByUsername(signon.getUsername());
+				String result;
 				if(SignonData.get(0).getPassword().equals(signon.getPassword()))
 				{
-					return new ResponseEntity<>("True", HttpStatus.OK);
+					result = "{status: true}";
+					return new ResponseEntity<>(result , HttpStatus.OK);
 				}
 				else
 				{
-					return new ResponseEntity<>("Password didn't match: "+SignonData.get(0).getUsername()+ " " +SignonData.get(0).getPassword(), HttpStatus.INTERNAL_SERVER_ERROR);
+					result = "{status: false}";
+					return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
 				}	
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
