@@ -50,7 +50,7 @@ public class ProductController {
 		if (productData.size()>0) {
 			return new ResponseEntity<>(productData.get(0), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.OK);
 		}
 	}
 
@@ -61,7 +61,7 @@ public class ProductController {
 		if (productData.size()>0) {
 			return new ResponseEntity<>(productData, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.OK);
 		}
 	}
 
@@ -71,7 +71,7 @@ public class ProductController {
 		if (productData.size()>0) {
 			return new ResponseEntity<>(productData, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.OK);
 		}
 	}
 }
