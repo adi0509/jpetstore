@@ -1,4 +1,4 @@
-version: '3.1'
+version: '2.2'
 services:
   # -------- Account microservice --------
   mysql-account:
@@ -9,6 +9,7 @@ services:
     - "3311:3306"
     volumes:
       - ./database/account:/docker-entrypoint-initdb.d
+      - ./sql-low-mem.cnf:/etc/mysql/my.cnf
     environment:
       MYSQL_ROOT_PASSWORD: test
       MYSQL_PASSWORD: test
@@ -19,6 +20,7 @@ services:
     build:
       context: microservice/AccountService
       dockerfile: Dockerfile
+    mem_limit: 250m
     ports:
       - "8081:8080"
     depends_on:
@@ -33,6 +35,7 @@ services:
     - "3312:3306"
     volumes:
       - ./database/catalog:/docker-entrypoint-initdb.d
+      - ./sql-low-mem.cnf:/etc/mysql/my.cnf
     environment:
       MYSQL_ROOT_PASSWORD: test
       MYSQL_PASSWORD: test
@@ -43,6 +46,7 @@ services:
     build:
       context: microservice/CatalogService
       dockerfile: Dockerfile
+    mem_limit: 250m
     ports:
       - "8082:8080"
     depends_on:
@@ -57,6 +61,7 @@ services:
     - "3313:3306"
     volumes:
       - ./database/order:/docker-entrypoint-initdb.d
+      - ./sql-low-mem.cnf:/etc/mysql/my.cnf
     environment:
       MYSQL_ROOT_PASSWORD: test
       MYSQL_PASSWORD: test
@@ -67,6 +72,7 @@ services:
     build:
       context: microservice/OrderService
       dockerfile: Dockerfile
+    mem_limit: 250m
     ports:
       - "8083:8080"
     depends_on:
