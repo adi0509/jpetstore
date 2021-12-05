@@ -57,13 +57,13 @@ public class ItemController {
 
 // this route will check it the item is in stock or not
 	@GetMapping("/item/stock/{itemId}")
-	public ResponseEntity<Boolean> isItemInStock(@PathVariable("itemId") String itemId) {
+	public ResponseEntity<Integer> isItemInStock(@PathVariable("itemId") String itemId) {
 		List<Inventory> inventoryData = inventoryRepository.findByItemId(itemId);
 
 		if (inventoryData.size()>0) {
-			return new ResponseEntity<>(inventoryData.get(0).getQuantity()>0, HttpStatus.OK);
+			return new ResponseEntity<>(inventoryData.get(0).getQuantity(), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(0, HttpStatus.NOT_FOUND);
 		}
 	}
 
