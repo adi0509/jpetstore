@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.qos.logback.core.joran.conditional.ElseAction;
+
 import com.bezkoder.spring.datajpa.model.Category;
 import com.bezkoder.spring.datajpa.model.Inventory;
 import com.bezkoder.spring.datajpa.model.Item;
@@ -57,13 +59,16 @@ public class ItemController {
 
 // this route will check it the item is in stock or not
 	@GetMapping("/item/stock/{itemId}")
-	public ResponseEntity<Integer> isItemInStock(@PathVariable("itemId") String itemId) {
+	public ResponseEntity<String> isItemInStock(@PathVariable("itemId") String itemId) {
 		List<Inventory> inventoryData = inventoryRepository.findByItemId(itemId);
-
+		String result;
 		if (inventoryData.size()>0) {
-			return new ResponseEntity<>(inventoryData.get(0).getQuantity(), HttpStatus.OK);
+			String quantity = String.valueOf(inventoryData.get(0).getQuantity());
+			result = "{\"itemId\": " + itemId+ ", \"quantity\": " + quantity + " }"; 
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(0, HttpStatus.NOT_FOUND);
+			result = "{\"itemId\": " + itemId+ ", \"quantity\": 0 }"; 
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
 	}
 
