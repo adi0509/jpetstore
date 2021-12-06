@@ -64,10 +64,10 @@ public class ItemController {
 		String result;
 		if (inventoryData.size()>0) {
 			String quantity = String.valueOf(inventoryData.get(0).getQuantity());
-			result = "{\"itemId\": " + itemId+ ", \"quantity\": " + quantity + " }"; 
+			result = "{\"itemId\": \"" + itemId+ "\", \"quantity\": " + quantity + " }"; 
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		} else {
-			result = "{\"itemId\": " + itemId+ ", \"quantity\": 0 }"; 
+			result = "{\"itemId\": \"" + itemId+ "\", \"quantity\": 0 }"; 
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
 	}
