@@ -1,5 +1,5 @@
 # Jpetstore
-
+The [JPetStore](https://github.com/mybatis/jpetstore-6) is an online e-commerce pet store application. We redesigned and redeveloped the existing application in **micro-service architecture**.
 ## Prerequisite
 - [Install Docker](https://docs.docker.com/engine/install/#server)
 - [Install Docker-compose](https://docs.docker.com/compose/install/#install-compose)
@@ -8,17 +8,9 @@
 ### Start server
     docker-compose build
     docker-compose up -d
-NOTE: ``docker-compose build`` will take 15-20 minutes for the first time. It downloads all the required dependency.
+NOTE: ``docker-compose build`` will take 10-15 minutes for the first time. It downloads all the required dependency.
 ### Stop server
     docker-compose down
 
-## Architecture
-![architecture](/images/architect.png)
-### Account
-![architecture](/images/account.png)
-### Catalog
-![architecture](/images/catalog.png)
-### Order
-![architecture](/images/order.png)
-### Cart
-![architecture](/images/cart.png)
+## Microservice Architecture
+![microservice](/images/microservice.png)
