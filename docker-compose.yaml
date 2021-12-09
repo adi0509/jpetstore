@@ -1,79 +1,88 @@
 version: '2.2'
 services:
-  # -------- Account microservice --------
-  mysql-account:
-    image: mysql:8.0
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    ports:
-    - "3311:3306"
-    volumes:
-      - ./database/account:/docker-entrypoint-initdb.d
-      - ./sql-low-mem.cnf:/etc/mysql/my.cnf
-    environment:
-      MYSQL_ROOT_PASSWORD: test
-      MYSQL_PASSWORD: test
-      MYSQL_DATABASE: jpetstore
-
-  api-account:
-    restart: always
+  # -------- Frontend microservice --------
+  frontend:
     build:
-      context: microservice/AccountService
+      context: microservice/frontend
       dockerfile: Dockerfile
-    mem_limit: 250m
+    environment:
+    - DEBUG=*
     ports:
-      - "8081:8080"
-    depends_on:
-      - mysql-account
+      - "80:3000"
+  # # -------- Account microservice --------
+  # mysql-account:
+  #   image: mysql:8.0
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   ports:
+  #   - "3311:3306"
+  #   volumes:
+  #     - ./database/account:/docker-entrypoint-initdb.d
+  #     - ./sql-low-mem.cnf:/etc/mysql/my.cnf
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: test
+  #     MYSQL_PASSWORD: test
+  #     MYSQL_DATABASE: jpetstore
+
+  # api-account:
+  #   restart: always
+  #   build:
+  #     context: microservice/AccountService
+  #     dockerfile: Dockerfile
+  #   mem_limit: 250m
+  #   ports:
+  #     - "8081:8080"
+  #   depends_on:
+  #     - mysql-account
   
-  # -------- Catalog microservice --------
-  mysql-catalog:
-    image: mysql:8.0
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    ports:
-    - "3312:3306"
-    volumes:
-      - ./database/catalog:/docker-entrypoint-initdb.d
-      - ./sql-low-mem.cnf:/etc/mysql/my.cnf
-    environment:
-      MYSQL_ROOT_PASSWORD: test
-      MYSQL_PASSWORD: test
-      MYSQL_DATABASE: jpetstore
+  # # -------- Catalog microservice --------
+  # mysql-catalog:
+  #   image: mysql:8.0
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   ports:
+  #   - "3312:3306"
+  #   volumes:
+  #     - ./database/catalog:/docker-entrypoint-initdb.d
+  #     - ./sql-low-mem.cnf:/etc/mysql/my.cnf
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: test
+  #     MYSQL_PASSWORD: test
+  #     MYSQL_DATABASE: jpetstore
 
-  api-catalog:
-    restart: always
-    build:
-      context: microservice/CatalogService
-      dockerfile: Dockerfile
-    mem_limit: 250m
-    ports:
-      - "8082:8080"
-    depends_on:
-      - mysql-catalog
+  # api-catalog:
+  #   restart: always
+  #   build:
+  #     context: microservice/CatalogService
+  #     dockerfile: Dockerfile
+  #   mem_limit: 250m
+  #   ports:
+  #     - "8082:8080"
+  #   depends_on:
+  #     - mysql-catalog
   
-  # -------- Order microservice --------
-  mysql-order:
-    image: mysql:8.0
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    ports:
-    - "3313:3306"
-    volumes:
-      - ./database/order:/docker-entrypoint-initdb.d
-      - ./sql-low-mem.cnf:/etc/mysql/my.cnf
-    environment:
-      MYSQL_ROOT_PASSWORD: test
-      MYSQL_PASSWORD: test
-      MYSQL_DATABASE: jpetstore
+  # # -------- Order microservice --------
+  # mysql-order:
+  #   image: mysql:8.0
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   ports:
+  #   - "3313:3306"
+  #   volumes:
+  #     - ./database/order:/docker-entrypoint-initdb.d
+  #     - ./sql-low-mem.cnf:/etc/mysql/my.cnf
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: test
+  #     MYSQL_PASSWORD: test
+  #     MYSQL_DATABASE: jpetstore
 
-  api-order:
-    restart: always
-    build:
-      context: microservice/OrderService
-      dockerfile: Dockerfile
-    mem_limit: 250m
-    ports:
-      - "8083:8080"
-    depends_on:
-      - mysql-order
+  # api-order:
+  #   restart: always
+  #   build:
+  #     context: microservice/OrderService
+  #     dockerfile: Dockerfile
+  #   mem_limit: 250m
+  #   ports:
+  #     - "8083:8080"
+  #   depends_on:
+  #     - mysql-order
