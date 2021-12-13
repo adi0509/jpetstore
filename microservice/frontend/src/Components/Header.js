@@ -50,7 +50,11 @@ const Header = () => {
             >
               <Link to="/cart">Cart</Link>
               <Link to="/signin">Sign In</Link>
+              <Link to="/register">My Account</Link>
               <Link to="/help">Help</Link>
+              <Link to="/order/checkout">checkout</Link>
+              <Link to="/order/confirmation">Confirmation</Link>
+              <Link to="/order/summary">Summary</Link>
             </Nav>
             <Form className="d-flex" onSubmit={handleSubmit}>
               <FormControl
