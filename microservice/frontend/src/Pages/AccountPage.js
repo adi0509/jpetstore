@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { Link } from "react-router-dom";
+
 import { AccountPageForm } from "../Components";
 
 const AccountPage = () => {
@@ -34,11 +36,17 @@ const AccountPage = () => {
   };
 
   return (
-    <AccountPageForm
-      setFormData={setFormData}
-      formData={formData}
-      handleInputField={handleInputField}
-    />
+    <>
+      <AccountPageForm
+        setFormData={setFormData}
+        formData={formData}
+        handleInputField={handleInputField}
+      />
+
+      <Link to="/order/all" className="text-dark">
+        My Orders
+      </Link>
+    </>
   );
 };
 

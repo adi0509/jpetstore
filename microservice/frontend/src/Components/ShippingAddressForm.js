@@ -1,13 +1,6 @@
-import { useState } from "react";
-
 import { Row, Col, Form, Button } from "react-bootstrap";
 
-const CheckoutForm = ({
-  formData,
-  handleInputField = () => {},
-  title,
-  readOnly = false,
-}) => {
+const ShippingAddressForm = () => {
   const {
     cardType,
     cardNumber,
@@ -21,11 +14,9 @@ const CheckoutForm = ({
     zip,
     country,
   } = formData;
-
   return (
     <Row xs={1} md={12} className="g-2 mt-2 mb-2">
-      <h3 className="text-center">{title}</h3>
-
+      <h3 className="text-center">Account Information</h3>
       <Row className="mb-2">
         <Form.Label column="sm" lg={3}>
           First Name
@@ -37,7 +28,6 @@ const CheckoutForm = ({
             value={fName}
             onChange={handleInputField("fName")}
             placeholder="First Name"
-            readOnly={readOnly}
           />
         </Col>
       </Row>
@@ -52,7 +42,6 @@ const CheckoutForm = ({
             value={lName}
             onChange={handleInputField("lName")}
             placeholder="Last Name"
-            readOnly={readOnly}
           />
         </Col>
       </Row>
@@ -68,7 +57,6 @@ const CheckoutForm = ({
             value={addr1}
             onChange={handleInputField("addr1")}
             placeholder="Address 1"
-            readOnly={readOnly}
           />
         </Col>
       </Row>
@@ -83,7 +71,6 @@ const CheckoutForm = ({
             value={addr2}
             onChange={handleInputField("addr2")}
             placeholder="Address 2"
-            readOnly={readOnly}
           />
         </Col>
       </Row>
@@ -98,7 +85,6 @@ const CheckoutForm = ({
             value={city}
             onChange={handleInputField("city")}
             placeholder="City"
-            readOnly={readOnly}
           />
         </Col>
       </Row>
@@ -113,7 +99,6 @@ const CheckoutForm = ({
             value={state}
             onChange={handleInputField("state")}
             placeholder="State"
-            readOnly={readOnly}
           />
         </Col>
       </Row>
@@ -128,7 +113,6 @@ const CheckoutForm = ({
             value={zip}
             onChange={handleInputField("zip")}
             placeholder="Zip"
-            readOnly={readOnly}
           />
         </Col>
       </Row>
@@ -143,7 +127,6 @@ const CheckoutForm = ({
             value={country}
             onChange={handleInputField("country")}
             placeholder="Country"
-            readOnly={readOnly}
           />
         </Col>
       </Row>
@@ -151,4 +134,4 @@ const CheckoutForm = ({
   );
 };
 
-export default CheckoutForm;
+export default ShippingAddressForm;

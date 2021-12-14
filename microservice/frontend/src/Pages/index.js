@@ -7,6 +7,9 @@ import CartPage from "./CartPage";
 import SearchResultPage from "./SearchResultPage";
 import ItemPage from "./ItemPage";
 import CheckoutPage from "./CheckoutPage";
+import OrderConfirmationPage from "./OrderConfirmationPage";
+import OrderSummaryPage from "./OrderSummaryPage";
+import ViewOrdersPage from "./ViewOrdersPage";
 
 import NotFoundPage from "./NotFoundPage";
 
@@ -21,4 +24,7 @@ export {
   SearchResultPage,
   ItemPage,
   CheckoutPage,
+  OrderConfirmationPage,
+  OrderSummaryPage,
+  ViewOrdersPage,
 };
