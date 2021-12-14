@@ -30,7 +30,7 @@ services:
     build:
       context: microservice/AccountService
       dockerfile: Dockerfile
-    mem_limit: 150m
+    mem_limit: 250m
     ports:
       - "8081:8080"
     depends_on:
