@@ -1,14 +1,15 @@
 version: '2.2'
 services:
-  # -------- Frontend microservice --------
-  frontend:
-    build:
-      context: microservice/frontend
-      dockerfile: Dockerfile
-    # environment:
-    # - DEBUG=*
-    ports:
-      - "80:3000"
+  # # -------- Frontend microservice --------
+  # frontend:
+  #   build:
+  #     context: microservice/frontend
+  #     dockerfile: Dockerfile
+  #   # environment:
+  #   # - DEBUG=*
+  #   ports:
+  #     - "80:3000"
+  
   # -------- Account microservice --------
   mysql-account:
     image: mysql:8.0
@@ -29,11 +30,14 @@ services:
     build:
       context: microservice/AccountService
       dockerfile: Dockerfile
-    mem_limit: 250m
+    mem_limit: 150m
     ports:
       - "8081:8080"
     depends_on:
       - mysql-account
+    # This command waits until `mysql-account:3306` respond
+    # then runs our application
+    entrypoint: ["./wait-for-it.sh"]
   
   # -------- Catalog microservice --------
   mysql-catalog:
@@ -60,6 +64,9 @@ services:
       - "8082:8080"
     depends_on:
       - mysql-catalog
+    # This command waits until `mysql-account:3306` respond
+    # then runs our application
+    entrypoint: ["./wait-for-it.sh"]
   
   # -------- Order microservice --------
   mysql-order:
@@ -86,3 +93,6 @@ services:
       - "8083:8080"
     depends_on:
       - mysql-order
+    # This command waits until `mysql-account:3306` respond
+    # then runs our application
+    entrypoint: ["./wait-for-it.sh"]
