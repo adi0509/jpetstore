@@ -1,24 +1,19 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import { SearchApi } from "../../Services/search.service";
-import {
-  SEARCH_KEYWORD,
-  getProductBySearchKeyword,
-} from "../Actions/search.actions";
+import { OrderApi } from "../../Services/order.service";
+import { GET_ORDER, getOrdersByUserId } from "../Actions/order.actions";
 
-function* fetchProductsByKeyword(action) {
+function* fetchOrdersByUserId(action) {
   try {
-    console.log("inside saga: " + action.payload);
+    const data = yield call(OrderApi.ordersByUserId, action.payload);
 
-    const data = yield call(SearchApi.productsByKeyword, action.payload);
-    console.log("inside saga: " + data);
-    yield put(getProductBySearchKeyword.success(data));
+    yield put(getOrdersByUserId.success(data));
   } catch (e) {
-    yield put(getProductBySearchKeyword.failure(e));
+    yield put(getOrdersByUserId.failure(e));
   }
 }
 
-function* searchSaga() {
-  yield takeLatest(SEARCH_KEYWORD.REQUEST, fetchProductsByKeyword);
+function* orderSaga() {
+  yield takeLatest(GET_ORDER.REQUEST, fetchOrdersByUserId);
 }
 
-export default searchSaga;
+export default orderSaga;

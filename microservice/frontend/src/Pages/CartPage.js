@@ -1,17 +1,22 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { useNavigate } from "react-router-dom";
+
 import { Table, Col, Button } from "react-bootstrap";
 
 import { removeItemFromCart } from "../Store/Actions/cart.actions";
+
+import { setLineItems } from "../Store/Actions/order.actions";
 
 import { CartTableRow } from "../Components";
 
 const CartPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { products, quantity, inventory } = useSelector((state) => state.cart);
   const items = useSelector((state) => state.cart.items);
-  // const [refresh, setRefresh] = useState(false);
+
   //   const [totalAmount, setTotalAmount] = useState([]);
 
   const [cartTotal, setCartTotal] = useState(0);
@@ -35,7 +40,28 @@ const CartPage = () => {
 
   const deleteItemFromCart = (itemId) => {
     dispatch(removeItemFromCart.request(itemId));
-    // setRefresh(!refresh);
+  };
+
+  // TODO:
+  const handleCheckout = () => {
+    //create lineitem array and add that to redux store
+
+    const lineItems = [];
+    const itemKeys = Object.keys(items);
+
+    for (let i = 0; i < itemKeys.length; i = i + 1) {
+      const lineItem = {
+        orderId: 100,
+        linenum: i,
+        itemId: items[itemKeys[i]].itemId,
+        quantity: quantity[itemKeys[i]],
+        unitprice: items[itemKeys[i]].unitCost,
+      };
+      lineItems.push(lineItem);
+    }
+
+    dispatch(setLineItems.request(lineItems));
+    navigate("/order/checkout");
   };
 
   // useEffect(() => {
@@ -96,11 +122,7 @@ const CartPage = () => {
             </tr>
           </tbody>
         </Table>
-        <Button
-          className="btn btn-success"
-          size="sm"
-          onClick={calculateCartTotal}
-        >
+        <Button className="btn btn-success" size="sm" onClick={handleCheckout}>
           Proceed to Checkout
         </Button>
       </Col>

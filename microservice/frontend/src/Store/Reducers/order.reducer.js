@@ -1,4 +1,4 @@
-import * as SearchActions from "../Actions/search.actions";
+import * as OrderActions from "../Actions/order.actions";
 
 const initialState = {
   orders: [],
@@ -23,24 +23,43 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case SearchActions.SEARCH_KEYWORD.REQUEST:
+    case OrderActions.GET_ORDER.REQUEST:
       return {
         ...state,
-        searchProducts: true,
-        keyword: action.payload,
+        getOrders: true,
       };
-    case SearchActions.SEARCH_KEYWORD.SUCCESS:
+    case OrderActions.GET_ORDER.SUCCESS:
       console.log(action.payload);
       return {
         ...state,
-        products: action.payload,
-        searchProducts: false,
+        orders: action.payload.data,
+        getOrders: false,
       };
-    case SearchActions.SEARCH_KEYWORD.FAILURE:
+    case OrderActions.GET_ORDER.FAILURE:
       return {
         ...state,
-        loadingProducts: false,
-        errorSearch: action.payload,
+        getOrders: false,
+        errorOrders: action.payload,
+      };
+    case OrderActions.SET_LINEITEMS:
+      return {
+        ...state,
+        lineItems: action.payload,
+      };
+    case OrderActions.SET_PAYMENT_DETAILS:
+      return {
+        ...state,
+        paymentDetails: action.payload,
+      };
+    case OrderActions.SET_BILLING_DETAILS:
+      return {
+        ...state,
+        billingDetails: action.payload,
+      };
+    case OrderActions.SET_SHIPPING_DETAILS:
+      return {
+        ...state,
+        shippingDetails: action.payload,
       };
     default:
       return state;

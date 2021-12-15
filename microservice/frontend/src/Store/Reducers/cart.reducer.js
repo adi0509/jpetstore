@@ -1,55 +1,11 @@
 import * as CartActions from "../Actions/cart.actions";
 
 const initialState = {
-  items: {
-    "EST-1": {
-      itemId: "EST-1",
-      productId: "FI-SW-01",
-      description: "Large angel fish",
-      inStock: "true",
-      quantity: 1,
-      listPrice: 16.5,
-      totalCost: 16.5,
-    },
-    "EST-2": {
-      itemId: "EST-2",
-      productId: "FI-SW-01",
-      description: "Large angel fish",
-      inStock: "true",
-      quantity: 1,
-      listPrice: 13.5,
-      totalCost: 13.5,
-    },
-  },
-  products: {
-    "EST-1": {
-      itemId: "EST-1",
-      productId: "FI-SW-01",
-      description: "Large angel fish",
-      inStock: "true",
-      quantity: 1,
-      listPrice: 16.5,
-      totalCost: 16.5,
-    },
-    "EST-2": {
-      itemId: "EST-2",
-      productId: "FI-SW-01",
-      description: "Large angel fish",
-      inStock: "true",
-      quantity: 1,
-      listPrice: 13.5,
-      totalCost: 13.5,
-    },
-  },
-  quantity: {
-    "EST-1": 1,
-    "EST-2": 1,
-  },
-  inventory: {
-    "EST-1": 1000,
-    "EST-2": 200,
-  },
-  cartTotal: 2,
+  items: {},
+  products: {},
+  quantity: {},
+  inventory: {},
+  cartTotal: 0,
   loadingInventory: false,
   loadingProduct: false,
   errorInventory: null,

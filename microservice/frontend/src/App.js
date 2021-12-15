@@ -18,6 +18,7 @@ import {
   OrderConfirmationPage,
   OrderSummaryPage,
   ViewOrdersPage,
+  ShippingDetailsPage,
 } from "./Pages/index";
 
 //import custom components
@@ -29,16 +30,15 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
-
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/register" element={<AccountPage />} />
-
         <Route path="/cart" element={<CartPage />} />
+
         <Route path="/order/checkout" element={<CheckoutPage />} />
+        <Route path="/order/checkout/more" element={<ShippingDetailsPage />} />
         <Route path="/order/all" element={<ViewOrdersPage />} />
         <Route path="/order/confirmation" element={<OrderConfirmationPage />} />
         <Route path="/order/summary" element={<OrderSummaryPage />} />
-
         <Route path="/catalogue/:id" element={<CataloguePage />} />
         <Route path="/catalogue/:id/:productId" element={<ProductPage />} />
         <Route
