@@ -11,6 +11,7 @@
 	<groupId>com.bezkoder</groupId>
 	<artifactId>catalog-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>	<!-- To create war file instead of Jar-->
 	<name>catalog-service</name>
 	<description>Demo project for Spring Boot Apis CRUD using Spring Data JPA</description>
 
