@@ -133,13 +133,12 @@ public class OrdersController {
 				);
 			
 			orderStatusRepository.save(orderStatus);
-			
-			orderItems.getLineItems().forEach(lineItem -> {
+				orderItems.getLineItems().forEach(lineItem -> {
 				lineItem.setOrderId(_order.getOrderId());
 				lineitemRepository.save(lineItem);
 			});
 						
-			return new ResponseEntity<>("Order Successfully placed", HttpStatus.CREATED);
+			return new ResponseEntity<>("{\"status\": \"Order Successfully placed\"}", HttpStatus.CREATED);
 		} catch (Exception e) {
 			System.out.println(e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

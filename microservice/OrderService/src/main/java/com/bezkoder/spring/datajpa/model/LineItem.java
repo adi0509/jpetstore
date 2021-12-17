@@ -3,6 +3,7 @@ package com.bezkoder.spring.datajpa.model;
 import javax.persistence.*;
 
 @Entity
+@IdClass(LineItemKey.class)
 @Table(name = "lineitem")
 public class LineItem {
 
@@ -20,7 +21,8 @@ public class LineItem {
 	  @Id
 	  @Column(name = "orderid")
 	  private int orderId;    
-  
+	  
+	  @Id
 	  @Column(name = "linenum")
 	  private int linenum;
   
