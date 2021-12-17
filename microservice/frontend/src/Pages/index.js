@@ -11,6 +11,7 @@ import OrderConfirmationPage from "./OrderConfirmationPage";
 import OrderSummaryPage from "./OrderSummaryPage";
 import ViewOrdersPage from "./ViewOrdersPage";
 import ShippingDetailsPage from "./ShippingDetailsPage";
+import ViewOrderPage from "./ViewOrderPage";
 
 import NotFoundPage from "./NotFoundPage";
 
@@ -29,4 +30,5 @@ export {
   OrderSummaryPage,
   ViewOrdersPage,
   ShippingDetailsPage,
+  ViewOrderPage,
 };

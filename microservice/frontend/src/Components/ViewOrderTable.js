@@ -18,11 +18,14 @@ const ViewOrderTable = ({ orders = [] }) => {
               <tr key={idx}>
                 <td>
                   {/* redirect to order summary page */}
-                  <Link to={order.orderId} className="text-dark">
+                  <Link
+                    to={`/order/view/${order.orderId}`}
+                    className="text-dark"
+                  >
                     {order.orderId}
                   </Link>
                 </td>
-                <td>{order.date}</td>
+                <td>{order.orderDate}</td>
                 <td>{order.totalPrice}</td>
               </tr>
             );

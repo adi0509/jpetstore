@@ -41,6 +41,7 @@ const AccountPage = () => {
         setFormData={setFormData}
         formData={formData}
         handleInputField={handleInputField}
+        isReadOnly={false}
       />
 
       <Link to="/order/all" className="text-dark">

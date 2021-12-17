@@ -7,4 +7,12 @@ export const OrderApi = {
     console.log("userid: " + userId);
     return axiosInstance.get(`/${ORDER_BASE_URL}/api/order/user/${userId}`);
   },
+  orderByOrderId: (orderId) => {
+    console.log("orderId inside service: " + orderId);
+    return axiosInstance.get(`/${ORDER_BASE_URL}/api/order/${orderId}`);
+  },
+  placeOrder: (orderDetails) => {
+    console.log("orderDetails: " + orderDetails);
+    return axiosInstance.post(`/${ORDER_BASE_URL}/api/order/new`, orderDetails);
+  },
 };

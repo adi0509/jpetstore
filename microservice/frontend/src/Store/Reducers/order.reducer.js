@@ -2,6 +2,7 @@ import * as OrderActions from "../Actions/order.actions";
 
 const initialState = {
   orders: [],
+  order: {},
   paymentDetails: {},
   billingDetails: {},
   shippingDetails: {},
@@ -10,6 +11,7 @@ const initialState = {
   orderDetails: {},
   nextId: "",
   getOrders: false,
+  getOrder: false,
   getNextId: false,
   settingPaymentDetails: false,
   settingBillingDetails: false,
@@ -17,6 +19,7 @@ const initialState = {
   settingConfirmOrderDetails: false,
   errorNextId: null,
   errorOrders: null,
+  errorOrder: null,
   placingOrder: false,
   errorPlacingOrder: null,
 };
@@ -40,6 +43,43 @@ export default function (state = initialState, action) {
         ...state,
         getOrders: false,
         errorOrders: action.payload,
+      };
+    case OrderActions.GET_ORDER_BY_ORDERID.REQUEST:
+      return {
+        ...state,
+        getOrder: true,
+      };
+    case OrderActions.GET_ORDER_BY_ORDERID.SUCCESS:
+      console.log(action.payload);
+      return {
+        ...state,
+        order: action.payload.data,
+        getOrder: false,
+      };
+    case OrderActions.GET_ORDER_BY_ORDERID.FAILURE:
+      console.log(action.payload);
+      return {
+        ...state,
+        getOrder: false,
+        errorOrder: action.payload,
+      };
+    case OrderActions.PLACE_ORDER.REQUEST:
+      return {
+        ...state,
+        placingOrder: true,
+      };
+    case OrderActions.PLACE_ORDER.SUCCESS:
+      console.log(action.payload);
+      return {
+        ...state,
+        orderDetails: action.payload.data,
+        placingOrder: false,
+      };
+    case OrderActions.PLACE_ORDER.FAILURE:
+      return {
+        ...state,
+        placingOrder: false,
+        errorPlacingOrder: action.payload,
       };
     case OrderActions.SET_LINEITEMS:
       return {
