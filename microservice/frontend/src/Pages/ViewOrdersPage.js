@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 
+import { Col } from "react-bootstrap";
 import { ViewOrderTable } from "../Components";
 
 import { getOrdersByUserId } from "../Store/Actions/order.actions";
@@ -19,7 +20,11 @@ const ViewOrdersPage = () => {
   if (username == undefined || username == null) {
     return <h1>Please login to view your orders.</h1>;
   } else {
-    return <div>{orders && <ViewOrderTable orders={orders} />}</div>;
+    return (
+      <Col md="6" className="mx-auto">
+        {orders && <ViewOrderTable orders={orders} />}
+      </Col>
+    );
   }
 };
 

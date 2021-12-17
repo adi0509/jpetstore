@@ -1,21 +1,53 @@
 import { useState } from "react";
-import { CheckoutForm, LineItemTable, PaymentDetails } from "../Components";
+import { useSelector, useDispatch } from "react-redux";
+
+import { CheckoutForm } from "../Components";
 import { Col, Button, Alert } from "react-bootstrap";
 
+import { placeOrder } from "../Store/Actions/order.actions";
+
 const OrderConfirmationPage = () => {
-  const [billingDetails, setBillingDetails] = useState({
-    cardType: "test data",
-    cardNumber: "test data",
-    expiryDate: "test data",
-    fName: "test data",
-    lName: "test data",
-    addr1: "test data",
-    addr2: "test data",
-    city: "test data",
-    state: "test data",
-    zip: "test data",
-    country: "test data",
-  });
+  const dispatch = useDispatch();
+
+  const { username } = useSelector((state) => state.auth.cred);
+  const { billingDetails, shippingDetails, paymentDetails, lineItems } =
+    useSelector((state) => state.order);
+
+  const handlePlaceOrder = () => {
+    const d = new Date();
+    const orderDetails = {
+      orderId: "2",
+      userId: username,
+      orderdate:
+        d.getUTCFullYear() + "/" + d.getUTCMonth() + "/" + d.getUTCDate(),
+      shipAddr1: shippingDetails.addr1,
+      shipAddr2: shippingDetails.addr2,
+      shipcity: shippingDetails.city,
+      shipstate: shippingDetails.state,
+      shipzip: shippingDetails.zip,
+      shipcountry: shippingDetails.country,
+      billaddr1: billingDetails.addr1,
+      billaddr2: billingDetails.addr2,
+      billcity: billingDetails.city,
+      billstate: billingDetails.state,
+      billzip: billingDetails.zip,
+      billcountry: billingDetails.country,
+      courier: "1",
+      totalprice: "1",
+      billtofirstname: billingDetails.fName,
+      billtolastname: billingDetails.lName,
+      shiptofirstname: shippingDetails.fName,
+      shiptolastname: shippingDetails.lName,
+      creditcard: paymentDetails.cardNumber,
+      exprdate: paymentDetails.expiryDate,
+      cardtype: paymentDetails.cardType,
+      locale: "1",
+      lineItems: [...lineItems],
+    };
+
+    console.log(orderDetails);
+    dispatch(placeOrder.request(orderDetails));
+  };
 
   return (
     <>
@@ -24,7 +56,7 @@ const OrderConfirmationPage = () => {
       </h5>
       <Col md="6" className="mx-auto">
         <Alert variant="primary" className="text-dark">
-          Order #12997 2021/12/12 09:20:00
+          Order 2021/12/12 09:20:00
         </Alert>
 
         <CheckoutForm
@@ -35,11 +67,16 @@ const OrderConfirmationPage = () => {
 
         <CheckoutForm
           title="Shipping Address"
-          formData={billingDetails}
+          formData={shippingDetails}
           readOnly={true}
         />
         <Col className="mx-auto mb-3" md={6}>
-          <Button className="btn btn-success mx-auto">Confirm</Button>
+          <Button
+            className="btn btn-success mx-auto"
+            onClick={handlePlaceOrder}
+          >
+            Confirm
+          </Button>
         </Col>
       </Col>
     </>

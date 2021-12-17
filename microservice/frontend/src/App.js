@@ -19,6 +19,7 @@ import {
   OrderSummaryPage,
   ViewOrdersPage,
   ShippingDetailsPage,
+  ViewOrderPage,
 } from "./Pages/index";
 
 //import custom components
@@ -39,6 +40,8 @@ const App = () => {
         <Route path="/order/all" element={<ViewOrdersPage />} />
         <Route path="/order/confirmation" element={<OrderConfirmationPage />} />
         <Route path="/order/summary" element={<OrderSummaryPage />} />
+        <Route path="/order/view/:orderId" element={<ViewOrderPage />} />
+
         <Route path="/catalogue/:id" element={<CataloguePage />} />
         <Route path="/catalogue/:id/:productId" element={<ProductPage />} />
         <Route

@@ -24,28 +24,21 @@ const PaymentDetails = ({
                 readOnly={readOnly}
               />
             ) : (
-              <Form.Select size="sm" defaultValue="Visa" readOnly={readOnly}>
-                <option
-                  key="visa"
-                  onChange={handleInputField("cardType")}
-                  value="Visa"
-                >
+              <Form.Select
+                size="sm"
+                defaultValue="Visa"
+                readOnly={readOnly}
+                onChange={handleInputField("cardType")}
+              >
+                <option key="visa" value="Visa">
                   Visa
                 </option>
 
-                <option
-                  key="MasterCard"
-                  onChange={handleInputField("cardType")}
-                  value="MasterCard"
-                >
+                <option key="MasterCard" value="MasterCard">
                   MasterCard
                 </option>
 
-                <option
-                  key="AmericanExpress"
-                  onChange={handleInputField("cardType")}
-                  value="AmericanExpress"
-                >
+                <option key="AmericanExpress" value="AmericanExpress">
                   American Express
                 </option>
               </Form.Select>
