@@ -110,17 +110,17 @@ public class OrdersController {
 			for(LineItem lineItem:orderItems.getLineItems()){
 				String itemId = lineItem.getItemId();
 				Integer increment = lineItem.getQuantity();
-				totalPrice += (lineItem.getQuantity()*Integer.parseInt(lineItem.getUnitprice()));		    
+				totalPrice += (lineItem.getQuantity()*Double.parseDouble(lineItem.getUnitprice()));		    
 			}
 
 			System.out.println("The JSON representation of LineItems: ");    
         	System.out.println(new Gson().toJson(orderItems.getLineItems()));
-
+			
 			//communicate to inventory microservice through REST API
 		    updateInventoryRequest(orderItems.getLineItems(), "http://api-catalog:8080/api/inventory");
-			  						    
+									    
 			orderItems.getOrders().setTotalPrice(String.valueOf(totalPrice));
-
+			
 			//Then update order table
 			Orders _order = orderRepository.save(orderItems.getOrders());
 			
@@ -133,7 +133,7 @@ public class OrdersController {
 				);
 			
 			orderStatusRepository.save(orderStatus);
-
+			
 			orderItems.getLineItems().forEach(lineItem -> {
 				lineItem.setOrderId(_order.getOrderId());
 				lineitemRepository.save(lineItem);
