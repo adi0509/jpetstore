@@ -4,18 +4,15 @@ public class AccountProfile {
     Account account;
     Profile profile;
     Signon signon;
-    BannerData bannerData;
 
-    AccountProfile(String userId, String email, String fName, String lName, String status, String addr1, String addr2, String city, String state, String zip, String country, String phone, String favcategory, String bannername, String languagePreference, String favouriteCategoryId, boolean listOption, boolean bannerOption, String password){
+    AccountProfile(String userId, String email, String fName, String lName, String status, String addr1, String addr2, String city, String state, String zip, String country, String phone, String favcategory, String languagePreference, boolean listOption, boolean bannerOption, String password){
         
         account = new Account(userId, email, fName, lName, status, addr1, addr2, city, state, zip, country, phone);
         
-        profile = new Profile(userId, languagePreference, favouriteCategoryId, listOption, bannerOption);
+        profile = new Profile(userId, languagePreference, favcategory, listOption, bannerOption);
         
         signon = new Signon(userId, password);
-        
-        bannerData = new BannerData(favcategory, bannername);
-    
+            
     }
 
     public Account getAccount(){
@@ -29,8 +26,5 @@ public class AccountProfile {
     public Signon getSignon(){
         return this.signon;
     }
-    
-    public BannerData getBannerData(){
-        return this.bannerData;
-    }
+
 }

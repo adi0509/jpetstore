@@ -108,7 +108,10 @@ public class SignonController {
 	public ResponseEntity<String> createSignup(@RequestBody AccountProfile ap) {
 		try {
 			
-			Signon _signon = signonRepository.save(new Signon(ap.getSignon().getUsername(), ap.getSignon().getPassword()));
+			if(ap.getSignon().getPassword() != "")
+			{
+				Signon _signon = signonRepository.save(new Signon(ap.getSignon().getUsername(), ap.getSignon().getPassword()));
+			}
 			
 			Account _account = accountRepository.save(
 				new Account(
@@ -129,12 +132,12 @@ public class SignonController {
 			
 			
 
-			BannerData _bannerData = bannerDataRepository.save(
-				new BannerData(
-					ap.getBannerData().getFavouriteCategoryId(),
-					ap.getBannerData().getBannerName()
-				)
-			);
+			// BannerData _bannerData = bannerDataRepository.save(
+			// 	new BannerData(
+			// 		ap.getBannerData().getFavouriteCategoryId(),
+			// 		ap.getBannerData().getBannerName()
+			// 	)
+			// );
 
 			Profile _profile = profileRepository.save(
 				new Profile(
@@ -146,7 +149,7 @@ public class SignonController {
 				)
 			);
 			
-			return new ResponseEntity<>(_signon.toString(), HttpStatus.CREATED);
+			return new ResponseEntity<>("{\"status\": \"Successfully inserted\"}", HttpStatus.CREATED);
 		} catch (Exception e) {
 			System.out.println(e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
