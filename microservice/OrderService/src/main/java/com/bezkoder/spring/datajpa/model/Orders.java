@@ -300,6 +300,14 @@ public class Orders
       this.shiptolastname = shiptolastname;
     }
 
+    public String getShiptofirstname() {
+      return this.shiptofirstname;
+    }
+  
+    public void setShiptofirstname(String shiptofirstname) {
+      this.shiptofirstname = shiptofirstname;
+    }
+
     public String getCreditCard() {
       return creditcard;
     }

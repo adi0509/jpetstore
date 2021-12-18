@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.Generated;
-
+import org.json.JSONObject;  
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +40,8 @@ import com.bezkoder.spring.datajpa.repository.OrderStatusRepository;
 import com.bezkoder.spring.datajpa.repository.LineitemRepository;
 import com.bezkoder.spring.datajpa.repository.SequenceRepository;
 
-import com.google.gson.Gson; 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject; 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -58,10 +61,12 @@ public class OrdersController {
 	LineitemRepository lineitemRepository;
 
     @GetMapping("/order/{orderId}")
-	public ResponseEntity<Orders> getOrderByOrderId(@PathVariable int orderId){	
+	public ResponseEntity<String> getOrderByOrderId(@PathVariable int orderId){	
 		try{
 			List<Orders> orderData = orderRepository.findByOrderId(orderId);
-			return new ResponseEntity<>(orderData.get(0), HttpStatus.OK);
+			//to print json of orders
+			String result = getResult(orderData.get(0));
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		} catch(Exception e){
 			//thow error here
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -113,9 +118,6 @@ public class OrdersController {
 				totalPrice += (lineItem.getQuantity()*Double.parseDouble(lineItem.getUnitprice()));		    
 			}
 
-			System.out.println("The JSON representation of LineItems: ");    
-        	System.out.println(new Gson().toJson(orderItems.getLineItems()));
-			
 			//communicate to inventory microservice through REST API
 		    updateInventoryRequest(orderItems.getLineItems(), "http://api-catalog:8080/api/inventory");
 									    
@@ -176,5 +178,51 @@ public class OrdersController {
             System.out.println("Exception Occurred: "+e);  
         } 
 
+	}
+
+	public static String getResult(Orders orders)
+	{
+		try
+		{	
+			JSONObject jsonOrder = new JSONObject();
+			jsonOrder.put("orderId", orders.getOrderId());
+			jsonOrder.put("userId", orders.getUserId());
+			jsonOrder.put("orderdate", orders.getOrderDate());
+			jsonOrder.put("courier", orders.getCourier());
+			jsonOrder.put("totalprice", orders.getTotalPrice());
+			jsonOrder.put("creditcard", orders.getCreditCard());
+			jsonOrder.put("exprdate", orders.getExprDate());
+			jsonOrder.put("cardtype", orders.getCardType());
+			jsonOrder.put("locale", orders.getLocale());
+
+			JSONObject billing = new JSONObject();
+			billing.put("addr1", orders.getBillAddr1());
+			billing.put("addr2", orders.getBillAddr2());
+			billing.put("city", orders.getBillCity());
+			billing.put("state", orders.getBillState());
+			billing.put("zip", orders.getBillZip());
+			billing.put("country", orders.getBillCountry());
+			billing.put("firstname", orders.getBilltofirstname());
+			billing.put("lastname", orders.getBilltolastname());
+
+			JSONObject shipping = new JSONObject();
+			shipping.put("addr1", orders.getShipAddr1());
+			shipping.put("addr2", orders.getShipAddr2());
+			shipping.put("city", orders.getShipCity());
+			shipping.put("state", orders.getShipState());
+			shipping.put("zip", orders.getShipZip());
+			shipping.put("country", orders.getShipCountry());
+			shipping.put("firstname", orders.getShiptofirstname());
+			shipping.put("lastname", orders.getShiptolastname());
+
+			jsonOrder.put("billing", billing);
+			jsonOrder.put("shipping", shipping);
+			return jsonOrder.toString();
+		}
+		catch(JSONException e)
+		{
+			System.out.println("Error: "+e);
+		}
+		return "";
 	}
 }
