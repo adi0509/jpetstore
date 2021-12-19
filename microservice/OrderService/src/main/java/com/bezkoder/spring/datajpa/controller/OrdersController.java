@@ -189,7 +189,7 @@ public class OrdersController {
 			jsonOrder.put("userId", orders.getUserId());
 			jsonOrder.put("orderdate", orders.getOrderDate());
 			jsonOrder.put("courier", orders.getCourier());
-			jsonOrder.put("totalprice", orders.getTotalPrice());
+			jsonOrder.put("totalPrice", orders.getTotalPrice());
 			jsonOrder.put("locale", orders.getLocale());
 
 			JSONObject payment = new JSONObject();
@@ -205,8 +205,8 @@ public class OrdersController {
 			billing.put("state", orders.getBillState());
 			billing.put("zip", orders.getBillZip());
 			billing.put("country", orders.getBillCountry());
-			billing.put("firstname", orders.getBilltofirstname());
-			billing.put("lastname", orders.getBilltolastname());
+			billing.put("fName", orders.getBilltofirstname());
+			billing.put("lName", orders.getBilltolastname());
 
 			JSONObject shipping = new JSONObject();
 			shipping.put("addr1", orders.getShipAddr1());
@@ -215,8 +215,8 @@ public class OrdersController {
 			shipping.put("state", orders.getShipState());
 			shipping.put("zip", orders.getShipZip());
 			shipping.put("country", orders.getShipCountry());
-			shipping.put("firstname", orders.getShiptofirstname());
-			shipping.put("lastname", orders.getShiptolastname());
+			shipping.put("fName", orders.getShiptofirstname());
+			shipping.put("lName", orders.getShiptolastname());
 
 			jsonOrder.put("billing", billing);
 			jsonOrder.put("shipping", shipping);
