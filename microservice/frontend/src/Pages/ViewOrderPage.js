@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { getOrderByOrderId } from "../Store/Actions/order.actions";
 
-import { Col } from "react-bootstrap";
+import { Col, Alert } from "react-bootstrap";
 import {
   PaymentDetails,
   CheckoutForm,
@@ -24,10 +24,32 @@ const ViewOrderPage = () => {
 
   return (
     <Col md="6" className="mx-auto">
-      <PaymentDetails formData={order} readOnly={true} />
-      <CheckoutForm formData={order} readOnly={true} />
-      <CheckoutForm formData={order} readOnly={true} />
-      {/* <LineItemTable /> */}
+      <Alert variant="primary" className="text-dark">
+        Order #{orderId} {order.orderdate} 09:20:00
+      </Alert>
+
+      <PaymentDetails
+        title="Payment Details"
+        formData={order.payment}
+        readOnly={true}
+      />
+
+      <CheckoutForm
+        title="Billing Address"
+        formData={order.billing}
+        readOnly={true}
+      />
+
+      <CheckoutForm
+        title="Shipping Address"
+        formData={order.shipping}
+        readOnly={true}
+      />
+
+      <LineItemTable />
+      <p>
+        <strong>Total: $</strong>
+      </p>
     </Col>
   );
 };

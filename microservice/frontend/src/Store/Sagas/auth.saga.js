@@ -1,6 +1,17 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { AuthorizationApi } from "../../Services/authorization.service";
-import { SIGNIN, SIGNUP, signUp, signIn } from "../Actions/auth.actions";
+import {
+  SIGNIN,
+  SIGNUP,
+  signUp,
+  signIn,
+  GET_ACCOUNT_BY_USERID,
+  GET_PROFILE_BY_USERID,
+  GET_BANNER_DATA,
+  getAccountByUserId,
+  getProfileByUserId,
+  getBannerData,
+} from "../Actions/auth.actions";
 
 function* validateCredentials(action) {
   try {
@@ -28,9 +39,50 @@ function* putSignUp(action) {
   }
 }
 
+function* fetchAccountByUserId(action) {
+  try {
+    const { data } = yield call(
+      AuthorizationApi.accountFromUserId,
+      action.payload
+    );
+
+    yield put(getAccountByUserId.success(data));
+  } catch (e) {
+    yield put(getAccountByUserId.failure(e.data));
+  }
+}
+
+function* fetchProfileByUserId(action) {
+  try {
+    const { data } = yield call(
+      AuthorizationApi.profileFromUserId,
+      action.payload
+    );
+
+    yield put(getProfileByUserId.success(data));
+    // favouriteCategoryId
+    yield put(getBannerData.request(data.favouriteCategoryId));
+  } catch (e) {
+    yield put(getProfileByUserId.failure(e.data));
+  }
+}
+
+function* fetchBannerData(action) {
+  try {
+    const { data } = yield call(AuthorizationApi.bannerData, action.payload);
+
+    yield put(getBannerData.success(data));
+  } catch (e) {
+    yield put(getBannerData.failure(e.data));
+  }
+}
+
 function* authorizationSaga() {
   yield takeLatest(SIGNIN.REQUEST, validateCredentials);
   yield takeLatest(SIGNUP.REQUEST, putSignUp);
+  yield takeLatest(GET_ACCOUNT_BY_USERID.REQUEST, fetchAccountByUserId);
+  yield takeLatest(GET_PROFILE_BY_USERID.REQUEST, fetchProfileByUserId);
+  yield takeLatest(GET_BANNER_DATA.REQUEST, fetchBannerData);
 }
 
 export default authorizationSaga;

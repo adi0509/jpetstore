@@ -20,6 +20,7 @@ import {
   ViewOrdersPage,
   ShippingDetailsPage,
   ViewOrderPage,
+  RegisterPage,
 } from "./Pages/index";
 
 //import custom components
@@ -32,7 +33,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signin" element={<SignInPage />} />
-        <Route path="/register" element={<AccountPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/account" element={<AccountPage />} />
         <Route path="/cart" element={<CartPage />} />
 
         <Route path="/order/checkout" element={<CheckoutPage />} />

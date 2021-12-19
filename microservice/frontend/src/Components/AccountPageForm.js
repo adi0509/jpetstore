@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 
 const AccountPageForm = (props) => {
-  const { formData, setFormData, handleInputField } = props;
+  const { formData, handleInputField, readOnly, submitHandler } = props;
 
   const [categories, setCategories] = useState([
     "FISH",
@@ -15,7 +15,6 @@ const AccountPageForm = (props) => {
   return (
     <div>
       <Col md={6} className="mx-auto mt-4">
-        {console.log(formData)}
         <Form>
           <Row xs={1} md={12} className="g-2 mt-2 mb-2">
             <h3 className="text-center">User Information</h3>
@@ -31,6 +30,7 @@ const AccountPageForm = (props) => {
                   value={formData.userId}
                   onChange={handleInputField("userId")}
                   placeholder="User Id"
+                  readOnly={readOnly}
                 />
               </Col>
             </Row>
@@ -222,19 +222,10 @@ const AccountPageForm = (props) => {
                 <Form.Select
                   size="sm"
                   defaultValue={formData.languagePreference}
+                  onChange={handleInputField("languagePreference")}
                 >
-                  <option
-                    value="english"
-                    onSelect={handleInputField("languagePreference")}
-                  >
-                    english
-                  </option>
-                  <option
-                    value="japanese"
-                    onSelect={handleInputField("languagePreference")}
-                  >
-                    japanese
-                  </option>
+                  <option value="english">english</option>
+                  <option value="japanese">japanese</option>
                 </Form.Select>
               </Col>
             </Row>
@@ -243,14 +234,14 @@ const AccountPageForm = (props) => {
                 Favourite Category
               </Form.Label>
               <Col>
-                <Form.Select size="sm" defaultValue={categories[0]}>
+                <Form.Select
+                  size="sm"
+                  defaultValue={formData.favcategory}
+                  onChange={handleInputField("favcategory")}
+                >
                   {categories.map((category, idx) => {
                     return (
-                      <option
-                        key={category}
-                        onChange={handleInputField("favCategory")}
-                        value={category}
-                      >
+                      <option key={category} value={category}>
                         {category}
                       </option>
                     );
@@ -266,10 +257,8 @@ const AccountPageForm = (props) => {
                 <Form.Check
                   type="checkbox"
                   id="default-checkbox"
-                  //   onChange={(e) => console.log(e)}
-                  //   checked={formData.listOption}
-                  onChange={(e) => console.log(e.target.checked)}
-                  //   onChange={handleInputField("listOption")}
+                  checked={formData.listOption}
+                  onChange={handleInputField("listOption")}
                 />
               </Col>
             </Row>
@@ -280,7 +269,7 @@ const AccountPageForm = (props) => {
               <Col>
                 <Form.Check
                   type="checkbox"
-                  value={formData.bannerOption}
+                  checked={formData.bannerOption}
                   onChange={handleInputField("bannerOption")}
                   id="default-checkbox"
                 />
@@ -289,7 +278,11 @@ const AccountPageForm = (props) => {
 
             <Row>
               <Col>
-                <Button className="btn btn-success" type="submit">
+                <Button
+                  className="btn btn-success"
+                  type="submit"
+                  onClick={submitHandler}
+                >
                   Save Account Information
                 </Button>
               </Col>

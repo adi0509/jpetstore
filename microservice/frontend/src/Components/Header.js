@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getProductBySearchKeyword } from "../Store/Actions/search.actions";
+import { signOut } from "../Store/Actions/auth.actions";
 import {
   Navbar,
   Nav,
@@ -26,6 +27,9 @@ const Header = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { username } = useSelector((state) => state.auth.cred);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(document.getElementById("searchField").value);
@@ -49,12 +53,27 @@ const Header = () => {
               navbarScroll
             >
               <Link to="/cart">Cart</Link>
-              <Link to="/signin">Sign In</Link>
-              <Link to="/register">My Account</Link>
+
+              {username !== undefined ? (
+                <>
+                  <p
+                    className="text-light pt-2 p-2 pb-0"
+                    onClick={() => dispatch(signOut.request())}
+                  >
+                    Sign Out
+                  </p>
+                  <Link to="/account">My Account</Link>
+                  {/* <Link to="/order/checkout">checkout</Link>
+                  <Link to="/order/confirmation">Confirmation</Link>
+                  <Link to="/order/summary">Summary</Link> */}
+                </>
+              ) : (
+                <>
+                  <Link to="/signin">Sign In</Link>
+                  <Link to="/register">Sign Up</Link>
+                </>
+              )}
               <Link to="/help">Help</Link>
-              <Link to="/order/checkout">checkout</Link>
-              <Link to="/order/confirmation">Confirmation</Link>
-              <Link to="/order/summary">Summary</Link>
             </Nav>
             <Form className="d-flex" onSubmit={handleSubmit}>
               <FormControl

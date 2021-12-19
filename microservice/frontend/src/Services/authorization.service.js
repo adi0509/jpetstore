@@ -16,4 +16,13 @@ export const AuthorizationApi = {
       accountDetails
     );
   },
+  profileFromUserId: (userId) => {
+    return axiosInstance.get(`/${ACCOUNT_BASE_URL}/api/profile/${userId}`);
+  },
+  accountFromUserId: (userId) => {
+    return axiosInstance.get(`/${ACCOUNT_BASE_URL}/api/account/${userId}`);
+  },
+  bannerData: (category) => {
+    return axiosInstance.get(`/${ACCOUNT_BASE_URL}/api/bannerdata/${category}`);
+  },
 };
