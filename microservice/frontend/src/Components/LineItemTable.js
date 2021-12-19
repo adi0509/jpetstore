@@ -2,13 +2,14 @@ import { Link } from "react-router-dom";
 
 import { Table } from "react-bootstrap";
 
-const LineItemTable = ({ itemList = [] }) => {
+const LineItemTable = ({ itemList = [], descFlag = true }) => {
   return (
     <Table striped bordered hover size="sm">
       <thead>
         <tr>
           <th>Item ID</th>
-          <th>Description</th>
+          {descFlag === true && <th>Description</th>}
+
           <th>Quantity</th>
           <th>Price</th>
           <th>Total Cost</th>
@@ -24,10 +25,14 @@ const LineItemTable = ({ itemList = [] }) => {
                 </Link>
               </td>
 
-              <td>{item.desc}</td>
+              {descFlag === true && <td>{item.desc}</td>}
               <td>{item.quantity}</td>
-              <td>{item.price}</td>
-              <td>{item.quantity * item.price}</td>
+              <td>{item.price === undefined ? item.unitprice : item.price}</td>
+              <td>
+                {item.price === undefined
+                  ? item.unitprice * item.quantity
+                  : item.quantity * item.price}
+              </td>
             </tr>
           );
         })}

@@ -7,6 +7,8 @@ import {
   PLACE_ORDER,
   getOrderByOrderId,
   GET_ORDER_BY_ORDERID,
+  getLineItemsByOrderId,
+  GET_LINEITEMS,
 } from "../Actions/order.actions";
 
 function* fetchOrdersByUserId(action) {
@@ -31,6 +33,17 @@ function* fetchOrderByOrderId(action) {
   }
 }
 
+function* fetchLineItemsByOrderId(action) {
+  try {
+    const data = yield call(OrderApi.lineItemsByOrderId, action.payload);
+
+    yield put(getLineItemsByOrderId.success(data));
+  } catch (e) {
+    console.log("e: ", e);
+    yield put(getLineItemsByOrderId.failure(e));
+  }
+}
+
 function* placeOrderSaga(action) {
   try {
     const data = yield call(OrderApi.placeOrder, action.payload);
@@ -44,6 +57,7 @@ function* placeOrderSaga(action) {
 function* orderSaga() {
   yield takeLatest(GET_ORDER.REQUEST, fetchOrdersByUserId);
   yield takeLatest(GET_ORDER_BY_ORDERID.REQUEST, fetchOrderByOrderId);
+  yield takeLatest(GET_LINEITEMS.REQUEST, fetchLineItemsByOrderId);
   yield takeLatest(PLACE_ORDER.REQUEST, placeOrderSaga);
 }
 

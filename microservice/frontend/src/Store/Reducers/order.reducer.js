@@ -3,6 +3,7 @@ import * as OrderActions from "../Actions/order.actions";
 const initialState = {
   orders: [],
   order: {},
+  fetchedLinteItems: [],
   paymentDetails: {},
   billingDetails: {},
   shippingDetails: {},
@@ -17,6 +18,8 @@ const initialState = {
   settingBillingDetails: false,
   settingShippingDetails: false,
   settingConfirmOrderDetails: false,
+  getLineItems: false,
+  errorLineItems: null,
   errorNextId: null,
   errorOrders: null,
   errorOrder: null,
@@ -62,6 +65,25 @@ export default function (state = initialState, action) {
         ...state,
         getOrder: false,
         errorOrder: action.payload,
+      };
+    case OrderActions.GET_LINEITEMS.REQUEST:
+      return {
+        ...state,
+        getLineItems: true,
+      };
+    case OrderActions.GET_LINEITEMS.SUCCESS:
+      console.log(action.payload);
+      return {
+        ...state,
+        fetchedLinteItems: action.payload.data,
+        getLineItems: false,
+      };
+    case OrderActions.GET_LINEITEMS.FAILURE:
+      console.log(action.payload);
+      return {
+        ...state,
+        getLineItems: false,
+        errorLineItems: action.payload,
       };
     case OrderActions.PLACE_ORDER.REQUEST:
       return {

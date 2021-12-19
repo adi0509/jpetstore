@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { getOrderByOrderId } from "../Store/Actions/order.actions";
+import {
+  getOrderByOrderId,
+  getLineItemsByOrderId,
+} from "../Store/Actions/order.actions";
 
 import { Col, Alert } from "react-bootstrap";
 import {
@@ -14,15 +17,16 @@ import { useParams } from "react-router-dom";
 
 const ViewOrderPage = () => {
   const dispatch = useDispatch();
-  const { order } = useSelector((state) => state.order);
+  const { order, fetchedLinteItems } = useSelector((state) => state.order);
 
   const { orderId } = useParams();
 
   useEffect(() => {
     dispatch(getOrderByOrderId.request(orderId));
+    dispatch(getLineItemsByOrderId.request(orderId));
   }, []);
 
-  return (
+  return order && fetchedLinteItems.length > 0 ? (
     <Col md="6" className="mx-auto">
       <Alert variant="primary" className="text-dark">
         Order #{orderId} {order.orderdate} 09:20:00
@@ -30,7 +34,7 @@ const ViewOrderPage = () => {
 
       <PaymentDetails
         title="Payment Details"
-        formData={order.payment}
+        paymentDetails={order.payment}
         readOnly={true}
       />
 
@@ -46,11 +50,13 @@ const ViewOrderPage = () => {
         readOnly={true}
       />
 
-      <LineItemTable />
+      <LineItemTable itemList={fetchedLinteItems} descFlag={false} />
       <p>
-        <strong>Total: $</strong>
+        <strong>Total: ${order.totalPrice}</strong>
       </p>
     </Col>
+  ) : (
+    <h2>Loading Order Details,Please have patience. </h2>
   );
 };
 
