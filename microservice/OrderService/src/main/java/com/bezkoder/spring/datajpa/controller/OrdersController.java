@@ -190,10 +190,13 @@ public class OrdersController {
 			jsonOrder.put("orderdate", orders.getOrderDate());
 			jsonOrder.put("courier", orders.getCourier());
 			jsonOrder.put("totalprice", orders.getTotalPrice());
-			jsonOrder.put("creditcard", orders.getCreditCard());
-			jsonOrder.put("exprdate", orders.getExprDate());
-			jsonOrder.put("cardtype", orders.getCardType());
 			jsonOrder.put("locale", orders.getLocale());
+
+			JSONObject payment = new JSONObject();
+			payment.put("cardNumber", orders.getCreditCard());			
+			payment.put("expiryDate", orders.getExprDate());
+			payment.put("cardType", orders.getCardType());
+			
 
 			JSONObject billing = new JSONObject();
 			billing.put("addr1", orders.getBillAddr1());
@@ -217,6 +220,7 @@ public class OrdersController {
 
 			jsonOrder.put("billing", billing);
 			jsonOrder.put("shipping", shipping);
+			jsonOrder.put("payment", payment);
 			return jsonOrder.toString();
 		}
 		catch(JSONException e)
