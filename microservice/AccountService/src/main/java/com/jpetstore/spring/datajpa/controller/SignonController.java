@@ -158,9 +158,9 @@ public class SignonController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<String> signin(@RequestBody Signon signon) {
+		String result;
 		try {
 				List<Signon> SignonData = signonRepository.findByUsername(signon.getUsername());
-				String result;
 				if(SignonData.get(0).getPassword().equals(signon.getPassword()))
 				{
 					result = "{\"status\": true}"; 
@@ -172,7 +172,8 @@ public class SignonController {
 					return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
 				}	
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR); 
+			result = "{\"status\": false}";
+			return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR); 
 		}
 	}
 
