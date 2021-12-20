@@ -6,7 +6,12 @@ const ItemCard = (props) => {
     <div>
       <Card style={{ width: "18rem" }} className="mx-auto mb-4 mt-4">
         <Card.Body>
-          <Card.Text>{product.descn}</Card.Text>
+          <Card.Text
+            dangerouslySetInnerHTML={{
+              __html: product.descn,
+            }}
+          />
+
           <Card.Title>{item.itemId}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
             {item.attr1} {item.attr2} {item.attr3} {item.attr4} {item.attr5}
