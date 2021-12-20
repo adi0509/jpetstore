@@ -140,7 +140,7 @@ public class OrdersController {
 				lineitemRepository.save(lineItem);
 			});
 						
-			return new ResponseEntity<>("{\"status\": \"Order Successfully placed\"}", HttpStatus.CREATED);
+			return new ResponseEntity<>("{\"status\": \"Order Successfully placed\",\"orderId\": " + _order.getOrderId() +"}", HttpStatus.CREATED);
 		} catch (Exception e) {
 			System.out.println(e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
