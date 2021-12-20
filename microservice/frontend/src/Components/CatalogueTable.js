@@ -17,9 +17,12 @@ const CatalogueTable = (props) => {
           items.map((item, idx) => {
             return (
               <tr key={idx}>
-                {descFlag === true ? <td>item.desc</td> : null}
+                {descFlag === true ? <td>{item.descn}</td> : null}
                 <td>
-                  <Link to={item.productId} className="text-dark">
+                  <Link
+                    to={`/catalogue/${item.category}/${item.productId}`}
+                    className="text-dark"
+                  >
                     {item.productId}
                   </Link>
                 </td>

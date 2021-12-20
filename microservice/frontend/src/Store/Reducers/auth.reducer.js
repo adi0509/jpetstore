@@ -13,7 +13,7 @@ const initialState = {
   cred: {},
   signingUp: false,
   signUpResult: null,
-  errorInSignup: null,
+  errorInSignup: false,
   errorAccount: {},
   errorProfile: {},
   errorBannerData: {},

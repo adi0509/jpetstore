@@ -127,9 +127,15 @@ const CartPage = () => {
             </tr>
           </tbody>
         </Table>
-        <Button className="btn btn-success" size="sm" onClick={handleCheckout}>
-          Proceed to Checkout
-        </Button>
+        {items && Object.keys(items).length > 0 && (
+          <Button
+            className="btn btn-success"
+            size="sm"
+            onClick={handleCheckout}
+          >
+            Proceed to Checkout
+          </Button>
+        )}
       </Col>
     </div>
   );

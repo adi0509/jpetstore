@@ -13,6 +13,7 @@ import ViewOrdersPage from "./ViewOrdersPage";
 import ShippingDetailsPage from "./ShippingDetailsPage";
 import ViewOrderPage from "./ViewOrderPage";
 import RegisterPage from "./RegisterPage";
+import HelpPage from "./HelpPage";
 
 import NotFoundPage from "./NotFoundPage";
 
@@ -33,4 +34,5 @@ export {
   ViewOrdersPage,
   ShippingDetailsPage,
   ViewOrderPage,
+  HelpPage,
 };

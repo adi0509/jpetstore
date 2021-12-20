@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { todaysDate, todaysTime } from "../Utils/helper";
@@ -7,13 +7,20 @@ import { CheckoutForm } from "../Components";
 import { Col, Button, Alert } from "react-bootstrap";
 
 import { placeOrder } from "../Store/Actions/order.actions";
+import { useNavigate } from "react-router-dom";
 
 const OrderConfirmationPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { username } = useSelector((state) => state.auth.cred);
-  const { billingDetails, shippingDetails, paymentDetails, lineItems } =
-    useSelector((state) => state.order);
+  const {
+    billingDetails,
+    shippingDetails,
+    paymentDetails,
+    lineItems,
+    orderDetails,
+  } = useSelector((state) => state.order);
 
   const handlePlaceOrder = () => {
     const d = new Date();
@@ -49,6 +56,10 @@ const OrderConfirmationPage = () => {
     console.log(orderDetails);
     dispatch(placeOrder.request(orderDetails));
   };
+
+  useEffect(() => {
+    navigate(`/order/view/${orderDetails.orderId}`);
+  }, [orderDetails]);
 
   return (
     <>

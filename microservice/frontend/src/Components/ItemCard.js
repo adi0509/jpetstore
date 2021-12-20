@@ -1,7 +1,7 @@
 import { Card, Button } from "react-bootstrap";
 
 const ItemCard = (props) => {
-  const { item, product, stock } = props;
+  const { item, product, stock, addItem } = props;
   return (
     <div>
       <Card style={{ width: "18rem" }} className="mx-auto mb-4 mt-4">
@@ -16,7 +16,9 @@ const ItemCard = (props) => {
           <Card.Text>{stock > 0 ? "In Stock" : "Back Ordered"}</Card.Text>
           <Card.Text>${item.listPrice}</Card.Text>
 
-          <Button className="btn btn-success">Add To Cart</Button>
+          <Button className="btn btn-success" onClick={() => addItem(item)}>
+            Add To Cart
+          </Button>
         </Card.Body>
       </Card>
     </div>

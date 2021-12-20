@@ -14,6 +14,12 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case CartActions.EMPTY_CART:
+      return {
+        ...state,
+        items: {},
+        quantity: {},
+      };
     case CartActions.ADD_ITEM:
       return {
         ...state,

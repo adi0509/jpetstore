@@ -1,6 +1,8 @@
 import { createRequestTypes, action } from "../../Utils/redux";
 
 export const UPDATE_CART = createRequestTypes("UPDATE_CART");
+export const EMPTY_CART = "EMPTY_CART";
+
 export const FETCH_PRODUCT_BY_PRODUCTID_CART = createRequestTypes(
   "FETCH_PRODUCT_BY_PRODUCTID_CART"
 );
@@ -28,6 +30,10 @@ export const getInventoryByItemId = {
   request: (category) => action(FETCH_INVENTORY_OF_ITEM_CART.REQUEST, category),
   success: (products) => action(FETCH_INVENTORY_OF_ITEM_CART.SUCCESS, products),
   failure: (error) => action(FETCH_INVENTORY_OF_ITEM_CART.FAILURE, error),
+};
+
+export const emptyCart = {
+  request: () => action(EMPTY_CART),
 };
 
 export const setCartItem = {

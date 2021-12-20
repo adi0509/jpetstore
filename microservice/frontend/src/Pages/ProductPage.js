@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 import { Col } from "react-bootstrap";
 
@@ -14,6 +15,7 @@ import { getItemsByProductId } from "../Store/Actions/catalogue.actions";
 
 const ProductPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { productId } = useParams();
 
   useEffect(() => {
@@ -25,6 +27,7 @@ const ProductPage = () => {
   const addItem = (product) => {
     dispatch(setCartItem.request(product));
     dispatch(getInventoryByItemId.request(product.itemId));
+    navigate("/cart");
   };
 
   // const [products, setProducts] = useState([

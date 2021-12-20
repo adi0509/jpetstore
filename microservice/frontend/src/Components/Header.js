@@ -16,6 +16,8 @@ import {
 
 import { Link } from "react-router-dom";
 
+import imageTop from "../Assets/images/logo-topbar.gif";
+
 const Header = () => {
   const [items, setItems] = useState([
     "fish",
@@ -30,6 +32,11 @@ const Header = () => {
 
   const { username } = useSelector((state) => state.auth.cred);
 
+  const signOutHandler = () => {
+    dispatch(signOut.request());
+    navigate("/");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(document.getElementById("searchField").value);
@@ -43,7 +50,15 @@ const Header = () => {
       <Navbar bg="dark" expand="lg">
         <Container fluid>
           <Navbar.Brand>
-            <Link to="/">JPetStore</Link>
+            <Link to="/">
+              <img
+                src={imageTop}
+                width="200"
+                height="50"
+                className="d-inline-block align-top"
+                alt="React Bootstrap logo"
+              />
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
@@ -58,7 +73,7 @@ const Header = () => {
                 <>
                   <p
                     className="text-light pt-2 p-2 pb-0"
-                    onClick={() => dispatch(signOut.request())}
+                    onClick={signOutHandler}
                   >
                     Sign Out
                   </p>

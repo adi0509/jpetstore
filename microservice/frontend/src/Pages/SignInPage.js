@@ -1,12 +1,31 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Form, Button } from "react-bootstrap";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { SIGNIN, signIn, signUp } from "../Store/Actions/auth.actions";
 
 const SignInPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {
+    authenticated,
+    error = { status: true },
+    validating,
+  } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (authenticated === true) {
+      navigate("/");
+    }
+  }, [authenticated]);
+
+  useEffect(() => {
+    if (error !== null && error.status === false) {
+      alert("Username and password mismatch.");
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

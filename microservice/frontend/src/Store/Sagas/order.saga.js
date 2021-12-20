@@ -1,5 +1,8 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { OrderApi } from "../../Services/order.service";
+
+import { emptyCart, EMPTY_CART } from "../Actions/cart.actions";
+
 import {
   GET_ORDER,
   getOrdersByUserId,
@@ -49,6 +52,7 @@ function* placeOrderSaga(action) {
     const data = yield call(OrderApi.placeOrder, action.payload);
 
     yield put(placeOrder.success(data));
+    yield put(emptyCart.request());
   } catch (e) {
     yield put(placeOrder.failure(e));
   }

@@ -81,12 +81,12 @@ const AccountPage = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (formData.repeatPassword === "" || formData.password === "") {
-      alert("password and repeat password can't be null");
-    } else if (formData.password !== formData.repeatPassword) {
+
+    if (formData.password !== formData.repeatPassword) {
       alert("password and repeat password should be same");
     } else {
       alert("everything okay so far!");
+      // TODO: dispatch action to update profile
     }
   };
 

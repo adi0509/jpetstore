@@ -21,6 +21,7 @@ import {
   ShippingDetailsPage,
   ViewOrderPage,
   RegisterPage,
+  HelpPage,
 } from "./Pages/index";
 
 //import custom components
@@ -32,6 +33,7 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/help" element={<HelpPage />} />
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/account" element={<AccountPage />} />

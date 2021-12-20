@@ -41,7 +41,7 @@ const AccountPageForm = (props) => {
               <Col>
                 <Form.Control
                   size="sm"
-                  type="text"
+                  type="password"
                   value={formData.password}
                   onChange={handleInputField("password")}
                   placeholder="New Password"
@@ -55,7 +55,7 @@ const AccountPageForm = (props) => {
               <Col>
                 <Form.Control
                   size="sm"
-                  type="text"
+                  type="password"
                   value={formData.repeatPassword}
                   onChange={handleInputField("repeatPassword")}
                   placeholder="Repeat password"

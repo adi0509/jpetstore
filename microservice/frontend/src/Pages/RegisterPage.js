@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { AccountPageForm } from "../Components";
 import { signUp } from "../Store/Actions/auth.actions";
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { signUpResult, errorInSignup } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
     userId: "",
@@ -42,6 +45,12 @@ const RegisterPage = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (errorInSignup === false && signUpResult !== null) {
+      navigate("/signin");
+    }
+  }, [signUpResult]);
 
   const submitHandler = (e) => {
     e.preventDefault();
