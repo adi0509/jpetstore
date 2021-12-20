@@ -14,15 +14,27 @@ const ViewOrdersPage = () => {
   const { orders } = useSelector((state) => state.order);
 
   useEffect(() => {
-    dispatch(getOrdersByUserId.request(username));
-  }, []);
+    if (username !== undefined || username !== null) {
+      dispatch(getOrdersByUserId.request(username));
+    }
+  }, [username]);
 
   if (username == undefined || username == null) {
-    return <h1>Please login to view your orders.</h1>;
+    return (
+      <h1 className="text-center mt-4 mb-4">
+        Please login to view your orders.
+      </h1>
+    );
   } else {
     return (
       <Col md="6" className="mx-auto">
-        {orders && <ViewOrderTable orders={orders} />}
+        {orders && orders.length < 1 ? (
+          <h3 className="text-center mt-4 mb-4">
+            No Orders placed by this user
+          </h3>
+        ) : (
+          <ViewOrderTable orders={orders} />
+        )}
       </Col>
     );
   }

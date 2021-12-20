@@ -11,6 +11,9 @@ export const OrderApi = {
     console.log("orderId inside service: " + orderId);
     return axiosInstance.get(`/${ORDER_BASE_URL}/api/order/${orderId}`);
   },
+  lineItemsByOrderId: (orderId) => {
+    return axiosInstance.get(`/${ORDER_BASE_URL}/api/lineitem/${orderId}`);
+  },
   placeOrder: (orderDetails) => {
     console.log("orderDetails: " + orderDetails);
     return axiosInstance.post(`/${ORDER_BASE_URL}/api/order/new`, orderDetails);

@@ -3,6 +3,7 @@ import { createRequestTypes, action } from "../../Utils/redux";
 export const GET_ORDER = createRequestTypes("GET_ORDER");
 export const GET_ORDER_BY_ORDERID = createRequestTypes("GET_ORDER_BY_ORDERID");
 export const PLACE_ORDER = createRequestTypes("PLACE_ORDER");
+export const GET_LINEITEMS = createRequestTypes("GET_LINEITEMS");
 export const SET_LINEITEMS = "SET_LINEITEMS";
 export const SET_PAYMENT_DETAILS = "SET_PAYMENT_DETAILS";
 export const SET_BILLING_DETAILS = "SET_BILLING_DETAILS";
@@ -18,6 +19,12 @@ export const getOrderByOrderId = {
   request: (orderId) => action(GET_ORDER_BY_ORDERID.REQUEST, orderId),
   success: (order) => action(GET_ORDER_BY_ORDERID.SUCCESS, order),
   failure: (error) => action(GET_ORDER_BY_ORDERID.FAILURE, error),
+};
+
+export const getLineItemsByOrderId = {
+  request: (orderId) => action(GET_LINEITEMS.REQUEST, orderId),
+  success: (lineItems) => action(GET_LINEITEMS.SUCCESS, lineItems),
+  failure: (error) => action(GET_LINEITEMS.FAILURE, error),
 };
 
 export const placeOrder = {

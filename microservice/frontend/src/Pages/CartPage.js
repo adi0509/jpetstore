@@ -14,6 +14,7 @@ import { CartTableRow } from "../Components";
 const CartPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { username } = useSelector((state) => state.auth.cred);
   const { products, quantity, inventory } = useSelector((state) => state.cart);
   const items = useSelector((state) => state.cart.items);
 
@@ -46,22 +47,26 @@ const CartPage = () => {
   const handleCheckout = () => {
     //create lineitem array and add that to redux store
 
-    const lineItems = [];
-    const itemKeys = Object.keys(items);
+    if (username === undefined) {
+      alert("You Need to Signin before checkout.");
+    } else {
+      const lineItems = [];
+      const itemKeys = Object.keys(items);
 
-    for (let i = 0; i < itemKeys.length; i = i + 1) {
-      const lineItem = {
-        orderId: 100,
-        linenum: i,
-        itemId: items[itemKeys[i]].itemId,
-        quantity: quantity[itemKeys[i]],
-        unitprice: items[itemKeys[i]].unitCost,
-      };
-      lineItems.push(lineItem);
+      for (let i = 0; i < itemKeys.length; i = i + 1) {
+        const lineItem = {
+          orderId: 100,
+          linenum: i,
+          itemId: items[itemKeys[i]].itemId,
+          quantity: quantity[itemKeys[i]],
+          unitprice: items[itemKeys[i]].unitCost,
+        };
+        lineItems.push(lineItem);
+      }
+
+      dispatch(setLineItems.request(lineItems));
+      navigate("/order/checkout");
     }
-
-    dispatch(setLineItems.request(lineItems));
-    navigate("/order/checkout");
   };
 
   // useEffect(() => {

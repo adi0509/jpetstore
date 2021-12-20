@@ -12,6 +12,7 @@ import OrderSummaryPage from "./OrderSummaryPage";
 import ViewOrdersPage from "./ViewOrdersPage";
 import ShippingDetailsPage from "./ShippingDetailsPage";
 import ViewOrderPage from "./ViewOrderPage";
+import RegisterPage from "./RegisterPage";
 
 import NotFoundPage from "./NotFoundPage";
 
@@ -21,6 +22,7 @@ export {
   CataloguePage,
   ProductPage,
   SignInPage,
+  RegisterPage,
   AccountPage,
   CartPage,
   SearchResultPage,

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import { todaysDate, todaysTime } from "../Utils/helper";
+
 import { CheckoutForm } from "../Components";
 import { Col, Button, Alert } from "react-bootstrap";
 
@@ -18,8 +20,7 @@ const OrderConfirmationPage = () => {
     const orderDetails = {
       orderId: "2",
       userId: username,
-      orderdate:
-        d.getUTCFullYear() + "/" + d.getUTCMonth() + "/" + d.getUTCDate(),
+      orderdate: todaysDate(),
       shipAddr1: shippingDetails.addr1,
       shipAddr2: shippingDetails.addr2,
       shipcity: shippingDetails.city,
@@ -56,7 +57,7 @@ const OrderConfirmationPage = () => {
       </h5>
       <Col md="6" className="mx-auto">
         <Alert variant="primary" className="text-dark">
-          Order 2021/12/12 09:20:00
+          Order {todaysDate() + " " + todaysTime()}
         </Alert>
 
         <CheckoutForm
