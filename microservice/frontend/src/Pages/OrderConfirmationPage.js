@@ -22,9 +22,10 @@ const OrderConfirmationPage = () => {
     orderDetails,
   } = useSelector((state) => state.order);
 
+  const { items } = useSelector((state) => state.cart);
+
   const handlePlaceOrder = () => {
-    const d = new Date();
-    const orderDetails = {
+    const orderDetail = {
       orderId: "2",
       userId: username,
       orderdate: todaysDate(),
@@ -53,13 +54,15 @@ const OrderConfirmationPage = () => {
       lineItems: [...lineItems],
     };
 
-    console.log(orderDetails);
-    dispatch(placeOrder.request(orderDetails));
+    console.log(orderDetail);
+    dispatch(placeOrder.request(orderDetail));
   };
 
   useEffect(() => {
-    navigate(`/order/view/${orderDetails.orderId}`);
-  }, [orderDetails]);
+    if (Object.keys(items).length === 0) {
+      navigate(`/order/view/${orderDetails.orderId}`);
+    }
+  }, [items]);
 
   return (
     <>
