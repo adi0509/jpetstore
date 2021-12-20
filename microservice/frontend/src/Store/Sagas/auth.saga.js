@@ -20,7 +20,8 @@ function* validateCredentials(action) {
       action.payload
     );
     // localStorage.setItem("token", data.access_token);
-    yield put(signIn.success(data.access_token));
+    yield put(signIn.success(data));
+    yield put(getProfileByUserId.request(action.payload.username));
   } catch (e) {
     yield put(signIn.failure(e.data));
   }
