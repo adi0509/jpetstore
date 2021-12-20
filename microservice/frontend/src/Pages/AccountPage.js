@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import {
   getAccountByUserId,
   getProfileByUserId,
+  signUp,
 } from "../Store/Actions/auth.actions";
 
 import { AccountPageForm } from "../Components";
@@ -85,8 +86,8 @@ const AccountPage = () => {
     if (formData.password !== formData.repeatPassword) {
       alert("password and repeat password should be same");
     } else {
-      alert("everything okay so far!");
-      // TODO: dispatch action to update profile
+      // TODO: create new action "update account" to update profile instead of signup
+      dispatch(signUp.request(formData));
     }
   };
 

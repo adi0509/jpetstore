@@ -39,14 +39,14 @@ const Header = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(document.getElementById("searchField").value);
+
     const keyword = document.getElementById("searchField").value;
     dispatch(getProductBySearchKeyword.request(keyword));
     navigate(`/search/${keyword}`);
   };
 
   return (
-    <div>
+    <div className="bg-white">
       <Navbar bg="dark" expand="lg">
         <Container fluid>
           <Navbar.Brand>

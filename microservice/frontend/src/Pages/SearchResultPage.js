@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 import { useParams } from "react-router";
+
+import { Col } from "react-bootstrap";
+
 import { CatalogueTable } from "../Components/index";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductBySearchKeyword } from "../Store/Actions/search.actions";
@@ -15,10 +18,10 @@ const SearchResultPage = () => {
   }, []);
 
   return (
-    <div>
+    <Col className="mx-auto" md={8}>
       <h1>{keywords}</h1>
       <CatalogueTable items={search.products.data} descFlag={true} />
-    </div>
+    </Col>
   );
 };
 
