@@ -35,6 +35,7 @@ function* putSignUp(action) {
     );
     // localStorage.setItem("token", data.access_token);
     yield put(signUp.success(data));
+    yield put(getProfileByUserId.request(action.payload.userId));
   } catch (e) {
     yield put(signUp.failure(e.data));
   }
