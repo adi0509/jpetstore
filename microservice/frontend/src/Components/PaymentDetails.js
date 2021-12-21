@@ -1,7 +1,11 @@
 import { Row, Col, Form } from "react-bootstrap";
 
 const PaymentDetails = ({
-  paymentDetails = {},
+  paymentDetails = {
+    cardType: "",
+    cardNumber: "",
+    expiryDate: "",
+  },
   handleInputField = () => {},
   title = "Payment Details",
   readOnly = false,

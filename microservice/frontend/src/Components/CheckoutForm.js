@@ -8,19 +8,7 @@ const CheckoutForm = ({
   title,
   readOnly = false,
 }) => {
-  const {
-    cardType,
-    cardNumber,
-    expiryDate,
-    fName,
-    lName,
-    addr1,
-    addr2,
-    city,
-    state,
-    zip,
-    country,
-  } = formData;
+  const { fName, lName, addr1, addr2, city, state, zip, country } = formData;
 
   return (
     <Row xs={1} md={12} className="g-2 mt-2 mb-2">
