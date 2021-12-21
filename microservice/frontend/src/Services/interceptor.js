@@ -6,26 +6,6 @@ const axiosInstance = axios.create({
 });
 
 const requestHandler = (request) => {
-  // const token = localStorage.getItem("token");
-  // const lang = localStorage.getItem("i18nextLng");
-  // if (lang) {
-  //   request.headers["Content-Language"] = lang;
-  // }
-  // if (token) {
-  //   request.headers.Authorization = `bearer ${token}`;
-  // }
-
-  // request.headers.common["Accept"] = "*/*";
-  // request.headers.get["Accept"] = "*/*";
-  // request.headers["get"].append("Access-Control-Allow-Origin", "*");
-  // request.headers["get"].append("Access-Control-Allow-Credentials", "true");
-  // request.header["Access-Control-Allow-Origin"] = "*";
-  // request.header["Access-Control-Allow-Methods"] =
-  //   "GET, POST, PATCH, PUT, DELETE, OPTIONS";
-  // request.header["Access-Control-Allow-Headers"] =
-  //   "Origin, Content-Type, X-Auth-Token";
-
-  console.log(request.headers);
   return request;
 };
 

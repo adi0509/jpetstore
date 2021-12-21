@@ -48,7 +48,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (errorInSignup === false && signUpResult !== null) {
-      navigate("/signin");
+      // navigate("/signin");
     }
   }, [signUpResult]);
 

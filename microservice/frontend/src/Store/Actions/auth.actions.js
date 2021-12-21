@@ -2,6 +2,8 @@ import { createRequestTypes, action } from "../../Utils/redux";
 
 export const SIGNIN = createRequestTypes("SIGNIN");
 export const SIGNUP = createRequestTypes("SIGNUP");
+export const UPDATE_ACCOUNT = createRequestTypes("UPDATE_ACCOUNT");
+
 export const SIGNOUT = "SIGNOUT";
 
 export const GET_PROFILE_BY_USERID = createRequestTypes(
@@ -26,6 +28,12 @@ export const signUp = {
   request: (accountDetails) => action(SIGNUP.REQUEST, accountDetails),
   success: (data) => action(SIGNUP.SUCCESS, data),
   failure: (error) => action(SIGNUP.FAILURE, error),
+};
+
+export const updateAccount = {
+  request: (accountDetails) => action(UPDATE_ACCOUNT.REQUEST, accountDetails),
+  success: (data) => action(UPDATE_ACCOUNT.SUCCESS, data),
+  failure: (error) => action(UPDATE_ACCOUNT.FAILURE, error),
 };
 
 export const getProfileByUserId = {

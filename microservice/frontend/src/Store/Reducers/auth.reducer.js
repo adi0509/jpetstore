@@ -64,6 +64,23 @@ export default function (state = initialState, action) {
         signingUp: false,
         errorInSignup: action.payload,
       };
+    case AuthActions.UPDATE_ACCOUNT.REQUEST:
+      return {
+        ...state,
+        signingUp: true,
+      };
+    case AuthActions.UPDATE_ACCOUNT.SUCCESS:
+      return {
+        ...state,
+        signingUp: false,
+        signUpResult: action.payload,
+      };
+    case AuthActions.UPDATE_ACCOUNT.FAILURE:
+      return {
+        ...state,
+        signingUp: false,
+        errorInSignup: action.payload,
+      };
     case AuthActions.GET_PROFILE_BY_USERID.REQUEST:
       return {
         ...state,

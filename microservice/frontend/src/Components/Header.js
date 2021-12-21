@@ -30,7 +30,10 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { username } = useSelector((state) => state.auth.cred);
+  const {
+    cred: { username },
+    authenticated,
+  } = useSelector((state) => state.auth);
 
   const signOutHandler = () => {
     dispatch(signOut.request());
@@ -69,7 +72,7 @@ const Header = () => {
             >
               <Link to="/cart">Cart</Link>
 
-              {username !== undefined ? (
+              {authenticated === true && username !== undefined ? (
                 <>
                   <p
                     className="text-light pt-2 p-2 pb-0"

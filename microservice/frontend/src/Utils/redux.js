@@ -10,6 +10,26 @@ export const createRequestTypes = (base) => {
 };
 
 export const action = (type, data = {}) => {
-  // console.log("TYPE: ",type," Payload: ",data)
+  switch (type) {
+    case "SIGNIN_SUCCESS":
+      alert("Sign In successfully!!");
+      break;
+    case "SIGNIN_FAILURE":
+      alert("Unable to Login, check your credentials." + data.status);
+      break;
+    case "SIGNUP_SUCCESS":
+      alert("SignUp successfully!!");
+      break;
+    case "SIGNUP_FAILURE":
+      alert("SignUp Failed!!");
+      break;
+    case "UPDATE_ACCOUNT_SUCCESS":
+      alert("Account Updated successfully!!");
+      break;
+    case "UPDATE_ACCOUNT_FAILURE":
+      alert("Account Updation Failed!!");
+      break;
+  }
+
   return { type, payload: data };
 };

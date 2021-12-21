@@ -21,11 +21,11 @@ const SignInPage = () => {
     }
   }, [authenticated]);
 
-  useEffect(() => {
-    if (error !== null && error.status === false) {
-      alert("Username and password mismatch.");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (error !== null && error.status === false) {
+  //     alert("Username and password mismatch.");
+  //   }
+  // }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

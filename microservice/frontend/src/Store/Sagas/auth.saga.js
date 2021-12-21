@@ -11,6 +11,8 @@ import {
   getAccountByUserId,
   getProfileByUserId,
   getBannerData,
+  updateAccount,
+  UPDATE_ACCOUNT,
 } from "../Actions/auth.actions";
 
 function* validateCredentials(action) {
@@ -38,6 +40,20 @@ function* putSignUp(action) {
     yield put(getProfileByUserId.request(action.payload.userId));
   } catch (e) {
     yield put(signUp.failure(e.data));
+  }
+}
+
+function* updateAccountDetails(action) {
+  try {
+    const { data } = yield call(
+      AuthorizationApi.saveCredentials,
+      action.payload
+    );
+    // localStorage.setItem("token", data.access_token);
+    yield put(updateAccount.success(data));
+    yield put(getProfileByUserId.request(action.payload.userId));
+  } catch (e) {
+    yield put(updateAccount.failure(e.data));
   }
 }
 
@@ -82,6 +98,7 @@ function* fetchBannerData(action) {
 function* authorizationSaga() {
   yield takeLatest(SIGNIN.REQUEST, validateCredentials);
   yield takeLatest(SIGNUP.REQUEST, putSignUp);
+  yield takeLatest(UPDATE_ACCOUNT.REQUEST, updateAccountDetails);
   yield takeLatest(GET_ACCOUNT_BY_USERID.REQUEST, fetchAccountByUserId);
   yield takeLatest(GET_PROFILE_BY_USERID.REQUEST, fetchProfileByUserId);
   yield takeLatest(GET_BANNER_DATA.REQUEST, fetchBannerData);
