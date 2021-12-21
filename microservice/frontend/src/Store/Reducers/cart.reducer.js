@@ -38,10 +38,7 @@ export default function (state = initialState, action) {
     case CartActions.UPDATE_QUANTITY_OF_ITEM:
       return {
         ...state,
-        quantity: {
-          ...state.quantity,
-          [action.payload.itemId]: action.payload.quantity,
-        },
+        quantity: action.payload,
       };
     case CartActions.REMOVE_ITEM:
       const items = state.items;

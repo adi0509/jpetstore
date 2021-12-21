@@ -15,7 +15,7 @@ export const REMOVE_ITEM = "REMOVE_ITEM";
 export const UPDATE_QUANTITY_OF_ITEM = "UPDATE_QUANTITY_OF_ITEM";
 
 export const updateQuantityOfItem = {
-  request: (data) => action(UPDATE_QUANTITY_OF_ITEM.REQUEST, data),
+  request: (data) => action(UPDATE_QUANTITY_OF_ITEM, data),
 };
 
 export const getProductByProductId = {

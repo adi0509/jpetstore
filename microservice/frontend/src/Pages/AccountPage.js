@@ -102,7 +102,10 @@ const AccountPage = () => {
       />
 
       <div className="mx-auto text-center mt-4 mb-4">
-        <Link to="/order/all" className="text-center bg-dark">
+        <Link
+          to="/order/all"
+          className="text-center btn-primary btn text-light"
+        >
           My Orders
         </Link>
       </div>

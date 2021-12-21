@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 
 import { Table, Col, Button } from "react-bootstrap";
 
-import { removeItemFromCart } from "../Store/Actions/cart.actions";
+import {
+  removeItemFromCart,
+  updateQuantityOfItem,
+} from "../Store/Actions/cart.actions";
 
 import { setLineItems } from "../Store/Actions/order.actions";
 
@@ -18,29 +21,31 @@ const CartPage = () => {
   const { products, quantity, inventory } = useSelector((state) => state.cart);
   const items = useSelector((state) => state.cart.items);
 
-  //   const [totalAmount, setTotalAmount] = useState([]);
+  const [quantities, setQuantities] = useState(quantity);
 
   const [cartTotal, setCartTotal] = useState(0);
 
   const calculateCartTotal = () => {
-    //   let total = 0;
-    //   for (var i = 0; i < cartItems.length; i++) {
-    //     total =
-    //       total +
-    //       document.getElementById(cartItems[i].itemId).value *
-    //         cartItems[i].listPrice;
-    //   }
-    // const totalArr = [];
-    // cartItems.map((item, idx) => setTotalAmount([
-    //         ...totalAmount,
-    //         item.itemId: document.getElementById(item.itemId).value * item.listPrice
-    //     ])
-    // )
-    //   setCartTotal(total);
+    const itemKeys = Object.keys(items);
+    let total = 0;
+    for (let i = 0; i < itemKeys.length; i = i + 1) {
+      total = total + quantity[itemKeys[i]] * items[itemKeys[i]].listPrice;
+    }
+    setCartTotal(total);
   };
 
   const deleteItemFromCart = (itemId) => {
+    setQuantities({
+      ...quantities,
+      [itemId]: undefined,
+    });
     dispatch(removeItemFromCart.request(itemId));
+  };
+
+  const handleUpdateCart = () => {
+    console.log("cart updated");
+    dispatch(updateQuantityOfItem.request(quantities));
+    calculateCartTotal();
   };
 
   // TODO:
@@ -69,12 +74,9 @@ const CartPage = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const total = cartItems.map((item, idx) => item.quantity * item.listPrice);
-  //   return () => {
-  //     setCartTotal(total);
-  //   };
-  // }, [cartItems]);
+  useEffect(() => {
+    calculateCartTotal();
+  }, [items, quantity]);
 
   return (
     <div>
@@ -95,11 +97,6 @@ const CartPage = () => {
             </tr>
           </thead>
           <tbody>
-            {/* {JSON.stringify(items)}
-            {JSON.stringify(products)}
-            {JSON.stringify(quantity)}
-            {JSON.stringify(stock)} */}
-
             {Object.entries(items).map(([itemId, item], index) => {
               return (
                 <CartTableRow
@@ -107,6 +104,8 @@ const CartPage = () => {
                   item={item}
                   inventory={inventory}
                   quantity={quantity}
+                  quantities={quantities}
+                  onChangeQuantity={setQuantities}
                   deleteItemFromCart={deleteItemFromCart}
                 />
               );
@@ -119,7 +118,7 @@ const CartPage = () => {
                 <Button
                   className="btn btn-success"
                   size="sm"
-                  onClick={calculateCartTotal}
+                  onClick={handleUpdateCart}
                 >
                   update cart
                 </Button>
@@ -129,7 +128,7 @@ const CartPage = () => {
         </Table>
         {items && Object.keys(items).length > 0 && (
           <Button
-            className="btn btn-success"
+            className="btn btn-success mb-4 mt-4"
             size="sm"
             onClick={handleCheckout}
           >

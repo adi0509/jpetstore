@@ -46,7 +46,7 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white header">
       <Navbar bg="dark" expand="lg">
         <Container fluid>
           <Navbar.Brand>
@@ -113,7 +113,7 @@ const Header = () => {
         {items.map((item, idx) => {
           return (
             <ListGroup.Item className="border-none" key={idx}>
-              <Link to={"/catalogue/" + item} className="text-dark p-0">
+              <Link to={"/catalogue/" + item} className="txt-black p-0">
                 {item}
               </Link>
             </ListGroup.Item>
