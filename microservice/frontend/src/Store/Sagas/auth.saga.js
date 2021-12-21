@@ -52,6 +52,7 @@ function* updateAccountDetails(action) {
     // localStorage.setItem("token", data.access_token);
     yield put(updateAccount.success(data));
     yield put(getProfileByUserId.request(action.payload.userId));
+    yield put(getAccountByUserId.request(action.payload.userId));
   } catch (e) {
     yield put(updateAccount.failure(e.data));
   }
