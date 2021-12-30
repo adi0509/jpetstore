@@ -5,10 +5,10 @@ export const BASE_URL = "http:/";
 const ACCOUNT_BASE_URL = "/52.167.202.59:8081";
 const CATALOGUE_BASE_URL = "/52.167.202.59:8082";
 const ORDER_BASE_URL = "/52.167.202.59:8083";
-if (process.env.BASE_IP !== undefined) {
-  ACCOUNT_BASE_URL = `/${process.env.BASE_IP}:${process.env.ACCOUNT_PORT}`;
-  CATALOGUE_BASE_URL = `/${process.env.BASE_IP}:${process.env.CATALOGUE_PORT}`;
-  ORDER_BASE_URL = `/${process.env.BASE_IP}:${process.env.ORDER_PORT}`;
+if (process.env.REACT_APP_BASE_IP !== undefined) {
+  ACCOUNT_BASE_URL = `/${process.env.REACT_APP_BASE_IP}:${process.env.REACT_APP_ACCOUNT_PORT}`;
+  CATALOGUE_BASE_URL = `/${process.env.REACT_APP_BASE_IP}:${process.env.REACT_APP_CATALOGUE_PORT}`;
+  ORDER_BASE_URL = `/${process.env.REACT_APP_BASE_IP}:${process.env.REACT_APP_ORDER_PORT}`;
 }
 export { ACCOUNT_BASE_URL, CATALOGUE_BASE_URL, ORDER_BASE_URL };
 // export CATALOGUE_BASE_URL;

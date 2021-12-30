@@ -31,8 +31,6 @@ const App = () => {
   return (
     <div className="container App">
       <Header />
-      <>{JSON.stringify(process.env)}</>
-      <>{JSON.stringify(process.environment)}</>
 
       <Routes>
         <Route path="/" element={<HomePage />} />
