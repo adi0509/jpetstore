@@ -6,10 +6,11 @@ services:
       context: microservice/frontend
       dockerfile: Dockerfile
     environment:
-      BASE_IP: 52.167.202.59
-      ACCOUNT_PORT: 8081
-      CATALOGUE_PORT: 8082
-      ORDER_PORT: 8083
+      REACT_APP_BASE_IP: 52.167.202.59
+      REACT_APP_ACCOUNT_PORT: 8081
+      REACT_APP_CATALOGUE_PORT: 8082
+      REACT_APP_ORDER_PORT: 8083
+    # - DEBUG=*
     ports:
       - "80:3000"
 
@@ -34,6 +35,8 @@ services:
       context: microservice/AccountService
       dockerfile: Dockerfile
     mem_limit: 250m
+    environment:
+      - JAVA_OPTS="-Xms128m -Xmx180m"
     ports:
       - "8081:8080"
     depends_on:
@@ -63,6 +66,8 @@ services:
       context: microservice/CatalogService
       dockerfile: Dockerfile
     mem_limit: 250m
+    environment:
+      - JAVA_OPTS="-Xms128m -Xmx180m"
     ports:
       - "8082:8080"
     depends_on:
@@ -92,6 +97,8 @@ services:
       context: microservice/OrderService
       dockerfile: Dockerfile
     mem_limit: 250m
+    environment:
+      - JAVA_OPTS="-Xms128m -Xmx180m"
     ports:
       - "8083:8080"
     depends_on:
