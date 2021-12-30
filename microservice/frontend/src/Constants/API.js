@@ -2,10 +2,17 @@ export const BASE_URL = "http:/";
 // export const ACCOUNT_BASE_URL = "/api-account:8080";
 // export const CATALOGUE_BASE_URL = "/api-catalog:8080";
 // export const ORDER_BASE_URL = "/api-order:8080";
-
-export const ACCOUNT_BASE_URL = "/52.167.202.59:8081";
-export const CATALOGUE_BASE_URL = "/52.167.202.59:8082";
-export const ORDER_BASE_URL = "/52.167.202.59:8083";
+const ACCOUNT_BASE_URL = "/52.167.202.59:8081";
+const CATALOGUE_BASE_URL = "/52.167.202.59:8082";
+const ORDER_BASE_URL = "/52.167.202.59:8083";
+if (process.env.BASE_IP !== undefined) {
+  ACCOUNT_BASE_URL = `/${process.env.BASE_IP}:${process.env.ACCOUNT_PORT}`;
+  CATALOGUE_BASE_URL = `/${process.env.BASE_IP}:${process.env.CATALOGUE_PORT}`;
+  ORDER_BASE_URL = `/${process.env.BASE_IP}:${process.env.ORDER_PORT}`;
+}
+export { ACCOUNT_BASE_URL, CATALOGUE_BASE_URL, ORDER_BASE_URL };
+// export CATALOGUE_BASE_URL;
+// export ORDER_BASE_URL;
 
 /*
 catalogue: 8082
