@@ -5,8 +5,11 @@ services:
     build:
       context: microservice/frontend
       dockerfile: Dockerfile
-    # environment:
-    # - DEBUG=*
+    environment:
+      BASE_IP: 52.167.202.59
+      ACCOUNT_PORT: 8081
+      CATALOGUE_PORT: 8082
+      ORDER_PORT: 8083
     ports:
       - "80:3000"
 
